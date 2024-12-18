@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>media/pics/logo_tac.png</file>
+        <file>media/pics/avatar.png</file>
+        <file>media/icons/home.png</file>
+        <file>media/icons/database.png</file>
+        <file>media/icons/analytics.png</file>
+        <file>media/icons/log_out.png</file>
+        <file>media/icons/log_out_blue.png</file>
+        <file>media/icons/log_out_black.png</file>
+        <file>media/icons/add_user_blue.png</file>
+    </qresource>
+</RCC>

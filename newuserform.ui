@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewUserForm</class>
+ <widget class="QWidget" name="NewUserForm">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Open Sans</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Add User</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="pictures.qrc">
+    <normaloff>:/media/icons/add_user_blue.png</normaloff>:/media/icons/add_user_blue.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #FCFBFC;</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="World"/>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>50</y>
+     <width>110</width>
+     <height>85</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTipDuration">
+    <number>0</number>
+   </property>
+   <property name="locale">
+    <locale language="English" country="World"/>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="pictures.qrc">:/media/icons/add_user_blue.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="indent">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QToolBox" name="props_container_">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>185</y>
+     <width>290</width>
+     <height>250</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Open Sans</family>
+     <pointsize>12</pointsize>
+     <bold>true</bold>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="toolTipDuration">
+    <number>0</number>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #373637;</string>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <property name="tabSpacing">
+    <number>10</number>
+   </property>
+   <widget class="QWidget" name="type_prop_">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>290</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <attribute name="label">
+     <string>Type</string>
+    </attribute>
+    <widget class="QComboBox" name="type_">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>250</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::FocusPolicy::TabFocus</enum>
+     </property>
+     <property name="toolTipDuration">
+      <number>0</number>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #2575FC;
+border: 1px solid #2575FC;
+background-color: #FCFBFC;
+padding-left: 10px;
+</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="currentText">
+      <string>Student</string>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Student</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="group_prop_">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>290</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <attribute name="label">
+     <string>Group</string>
+    </attribute>
+    <widget class="QComboBox" name="group_">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>250</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>0</number>
+     </property>
+     <property name="styleSheet">
+      <string>color: #2575FC;
+border: 1px solid #2575FC;
+background-color: #FCFBFC;
+padding-left: 10px;
+</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>TAC - Bilingual Business</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAC - Health Education</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAC - Music</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAC - Theology</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 7th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 8th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 9th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 10th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 11th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAIS - 12th</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="name_prop">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>290</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <attribute name="label">
+     <string>Name</string>
+    </attribute>
+    <widget class="QLineEdit" name="name_">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>250</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>0</number>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #2575FC;
+border: 1px solid #2575FC;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="surname_">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>45</y>
+       <width>250</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="toolTipDuration">
+      <number>0</number>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #2575FC;
+border: 1px solid #2575FC;
+border-top: 0px;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Surname</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="gender_prop_wrapper_">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>290</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>50</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Open Sans</family>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <attribute name="label">
+     <string>Gender</string>
+    </attribute>
+    <widget class="QComboBox" name="gender_">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>250</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::FocusPolicy::NoFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+     </property>
+     <property name="toolTipDuration">
+      <number>0</number>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #2575FC;
+border: 1px solid #2575FC;
+background-color: #FCFBFC;
+padding-left: 10px;
+</string>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Male</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Female</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="save_button_">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>485</y>
+     <width>250</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Open Sans</family>
+     <pointsize>12</pointsize>
+     <fontweight>DemiBold</fontweight>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #FCFBFC;
+background-color: #2575FC;
+border-radius: 10px;</string>
+   </property>
+   <property name="text">
+    <string>SAVE</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="pictures.qrc"/>
+ </resources>
+ <connections/>
+</ui>

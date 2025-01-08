@@ -43,7 +43,7 @@ using Size = size_t;
         return path;
     }
     
-    inline static void ToByte();
+    //inline static void ToByte();
 
     template <typename T>
     class BinaryFile {

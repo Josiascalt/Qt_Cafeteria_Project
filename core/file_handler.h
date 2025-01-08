@@ -42,8 +42,6 @@ using Size = size_t;
 
         return path;
     }
-    
-    //inline static void ToByte();
 
     template <typename T>
     class BinaryFile {
@@ -65,7 +63,7 @@ using Size = size_t;
                         , Size count = 1
                         , std::optional<size_t> index = std::nullopt) {
             
-            auto size_in_bytes = static_cast<Size>(sizeof(Type) * count);
+            auto size_in_bytes = this -> ToByteSize(count);
             auto index_in_bytes = index ? (*index * sizeof(Type)) : this -> write_pos_;
             
             file_.seekp(index_in_bytes);
@@ -100,6 +98,15 @@ using Size = size_t;
 
         ~BinaryFile() {
             file_.close();
+        }
+
+    private:
+
+        Size ToByteSize(Size num_of_items) {
+            return static_cast<Size>(num_of_items * sizeof(Type));
+        }
+        Size ToElementSize(Size num_of_bytes) {
+            return static_cast<Size>(num_of_bytes / sizeof(Type));
         }
 
     private:

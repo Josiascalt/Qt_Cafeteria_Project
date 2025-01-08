@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../../proyecto_cafeteria/external/QR-Code-generator/src/qrcodegen.cpp \
     core/backup_handler.cpp \
     core/domain.cpp \
     core/file_handler.cpp \
@@ -20,6 +21,8 @@ SOURCES += \
     newuserform.cpp
 
 HEADERS += \
+    ../../proyecto_cafeteria/external/QR-Code-generator/pluggin.hpp \
+    ../../proyecto_cafeteria/external/QR-Code-generator/src/qrcodegen.hpp \
     core/backup_handler.h \
     core/domain.h \
     core/file_handler.h \

@@ -26,8 +26,8 @@ Dashboard::Dashboard(QWidget *parent, catalogue::request_handler::RequestHandler
             ui->database_viewer_->insertRow(1);
             if (auto student = dynamic_cast<const catalogue::domain::compound_types::Student*>(user.get())) {
                 ui->database_viewer_->setItem(1,0, new QTableWidgetItem(student->GetName().c_str()));
-                ui->database_viewer_->setItem(1,1, new QTableWidgetItem(student->GetGender() == catalogue::domain::components::types::Gender::MALE ? "MALE" : "FEMALE"));
-                ui->database_viewer_->setItem(1,2, new QTableWidgetItem(student->GetGroup().IsTAC() ? "TAC" : "NOT TAC"));
+                ui->database_viewer_->setItem(1,1, new QTableWidgetItem(student->GetGender() == catalogue::domain::components::types::Gender::MALE ? "Male" : "Female"));
+                ui->database_viewer_->setItem(1,2, new QTableWidgetItem(student->GetGroup().IsTAC() ? "TAC" : "TAIS"));
             }
         }
     }

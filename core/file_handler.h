@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <filesystem>
+#include <optional>
 
 namespace fs = std::filesystem;
 
@@ -41,39 +42,63 @@ using Size = size_t;
 
         return path;
     }
+    
+    inline static void ToByte();
 
+    template <typename T>
     class BinaryFile {
     public:
-        BinaryFile(const fs::path& path);
+        typedef T Type; 
+    public:
+        BinaryFile(const fs::path& path)
+        : file_(path, std::ios::out | std::ios::in | std::ios::binary) 
+        {
+            file_.seekp(0, std::ios::end);
+            write_pos_ = file_.tellp();
+            size_ = write_pos_ / sizeof(Type);
 
-        template <typename T>
-        inline void Write(T* source, Size size = sizeof(T)) {
-            file_.seekp(write_pos_);
-
-            if (file_) {
-                file_.write(reinterpret_cast<char*>(source), size);
-            }
-
-            size_ += size;
-            write_pos_ += size;
-
+            file_.seekg(0, std::ios::beg);
+            read_pos_ = file_.tellg();
         }
 
-        template <typename T>
-        inline void Read(T* target, Size size = sizeof(T)) {
-            file_.seekg(read_pos_);
+        inline void Write(Type* source
+                        , Size count = 1
+                        , std::optional<size_t> index = std::nullopt) {
+            
+            auto size_in_bytes = static_cast<Size>(sizeof(Type) * count);
+            auto index_in_bytes = index ? (*index * sizeof(Type)) : this -> write_pos_;
+            
+            file_.seekp(index_in_bytes);
+
+            if (file_) {
+                file_.write(reinterpret_cast<char*>(source), size_in_bytes);
+
+                if (auto current_index = index_in_bytes + size_in_bytes; 
+                    current_index > write_pos_) {
+                    size_ = current_index / sizeof(Type);
+                    write_pos_ = current_index;
+                }
+            }
+        }
+
+        inline void Read(Type* target
+                       , Size size = sizeof(Type)
+                       , std::optional<Size> pos = std::nullopt) {
+                           
+            file_.seekg(pos ? *pos : this -> read_pos_);
 
             if (file_) {
                 file_.read(reinterpret_cast<char*>(target), size);
             }
 
-            write_pos_ += size;
+            read_pos_ += size;
         }
 
-        Size GetSize() const;
+        inline Size GetSize() const {
+            return size_;
+        }
 
         ~BinaryFile() {
-            file_.flush();
             file_.close();
         }
 

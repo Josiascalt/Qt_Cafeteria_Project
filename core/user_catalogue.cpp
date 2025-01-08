@@ -2,10 +2,10 @@
 #include <deque>
 
 #include "user_catalogue.h"
+#include "utilities/utilities.h"
 
 namespace catalogue {
 namespace database {
-
     using namespace domain::type_naming;
     using namespace domain::components;
 
@@ -18,7 +18,7 @@ namespace database {
             }
         }
 
-        bool UserCatalogue::HasUser(const UserPtr& user) const {
+        /*bool UserCatalogue::HasUser(const UserPtr& user) const {
             using namespace domain::components;
             if (user) {
                 if (auto identifier = dynamic_cast<const Identifiable*>(user.get());
@@ -30,19 +30,19 @@ namespace database {
             }
 
             return false;
-        }
+        }*/
 
-        void UserCatalogue::AddUser(UserPtr&& user) {
-            if (!user) {
-                return;
+        UserCatalogue::RawIdentifier UserCatalogue::AddUser(UserPtr&& user) {
+            if (user) {
+                users_.push_back(std::move(user));
+
+                if (auto identifier = dynamic_cast<Identifiable*>(users_.back().get())) {
+                    auto raw_identifier = this->AssignIdentifier(identifier);
+                    identifier_to_user_[identifier->GetIdentifier()] = users_.size() - 1;
+                    return raw_identifier;
+                }
             }
-
-            users_.push_back(std::move(user));
-
-            if (auto identifier = dynamic_cast<Identifiable*>(users_.back().get())) {
-                identifier_to_user_[identifier->GetIdentifier()] = users_.size() - 1;
-            }
-
+            return RawIdentifier{}; 
         }
 
         const UserPtr& UserCatalogue::GetUserByIdentifier(types::Identifier identifier) const {
@@ -54,5 +54,21 @@ namespace database {
         const std::deque<UserPtr>& UserCatalogue::GetUsers() const {
             return users_;
         }
+
+        UserCatalogue::RawIdentifier UserCatalogue::AssignIdentifier(Identifiable* identifiable_user) const {
+            std::string raw_identifier;
+
+            while (true) {
+                raw_identifier = utilities::GenerateRandomStr(100);
+                identifiable_user->SetIdentifier(raw_identifier);
+
+                if (!identifier_to_user_.count(identifiable_user->GetIdentifier())) {
+                    break;
+                }
+            }
+
+            return raw_identifier;
+        }
+
     } //namespace database
 } //namespace catalogue

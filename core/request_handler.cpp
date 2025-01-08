@@ -1,10 +1,12 @@
 #include <utility>
+#include <iostream>
 
 #include "request_handler.h"
+#include "..\..\..\proyecto_cafeteria\external\QR-Code-generator\pluggin.hpp"
 
 namespace catalogue {
     namespace request_handler {
-        //struct RequestHandler member functions definition
+        //class RequestHandler member functions definition
         RequestHandler::RequestHandler(const backup::UserDataPaths& paths)
             : user_data_(paths)
             , catalogue_(user_data_.Deserialize())
@@ -13,13 +15,11 @@ namespace catalogue {
         }
 
         bool RequestHandler::AddUser(UserPtr&& user) {
-            if (catalogue_.HasUser(user)) {
-                user_data_.Serialize(user.get());
-                catalogue_.AddUser(std::move(user));
-                return true;
-            }
-
-            return false;
+            user_data_.Serialize(user.get());
+            auto raw_identifier = catalogue_.AddUser(std::move(user));
+            this->GenerateUserQrCode(raw_identifier);
+            
+            return true;
         }
 
         const UserPtr& RequestHandler::GetUserByIdentifier(domain::components::types::Identifier identifier) {
@@ -28,6 +28,10 @@ namespace catalogue {
 
         const std::deque<UserPtr>& RequestHandler::GetUsers() const {
             return catalogue_.GetUsers();
+        }
+
+        void RequestHandler::GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier) {
+            std::cout << '\n' << qrcodegen::pluggin::GenerateSvgQrCode(identifier) << '\n';
         }
 
     } //namespace request_handler

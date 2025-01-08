@@ -10,9 +10,6 @@
 
 namespace catalogue {
     namespace domain {
-        namespace type_naming {
-        using Size = size_t;
-        } //namespace type_naming
 
         using namespace type_naming;
 
@@ -209,7 +206,10 @@ namespace catalogue {
 
         namespace type_naming {
         using UserPtr = std::unique_ptr<compound_types::User>;
+        using Size = size_t;
+        using Index = size_t;
         } //namespace catalogue_naming
+
     } // namespace domain
 } // namespace catalogue
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #include <deque>
+#include <chrono>
 
 #include "domain.h"
 #include "file_handler.h"
@@ -69,21 +70,61 @@ namespace catalogue {
             template <typename T>
             inline void SerializeMetadata(T* user) {
                 domain::compound_types::UserType user_type = user->GetUserType();
-                user_queue_.Write(&user_type);
+                user_types_.Write(&user_type);
             }
 
             UserPtr DeserializeMetadata();
 
         private:
             //Metadata
-            file_handler::BinaryFile user_queue_;
+            file_handler::BinaryFile<domain::compound_types::UserType> user_types_;
             //Data
-            file_handler::BinaryFile names_;
-            file_handler::BinaryFile identifiers_;
-            file_handler::BinaryFile genders_;
-            file_handler::BinaryFile groups_;
+            file_handler::BinaryFile<domain::components::Nameable> names_;
+            file_handler::BinaryFile<domain::components::Identifiable> identifiers_;
+            file_handler::BinaryFile<domain::components::Genderable> genders_;
+            file_handler::BinaryFile<domain::components::Groupable> groups_;
         };
 
+        class RecordDataBackup {
+        public:
+            void Serialize(domain::components::Identifiable* identifiable) {
+                if (identifiable) {
+                    identifiable -> GetIdentifier();
+                }
+
+                auto now = std::chrono::system_clock::now();
+                auto formatted_time = std::chrono::system_clock::to_time_t(now);
+                auto localtime = *std::localtime(&formatted_time);
+
+
+                
+            }
+
+            void Deserialize();
+        private:
+            struct Session {
+                std::time_t date;
+                Index first;
+                Index last;
+            };
+
+            void SerializeMetadata() {
+
+            }
+
+            void DeserializeMetadata() {
+
+            }
+
+        private:
+            //Cache
+            Session current_session_;
+            //Metadata
+            file_handler::BinaryFile sessions_;
+            //Data
+            file_handler::BinaryFile identifiers_;
+            file_handler::BinaryFile timepoints_;
+        };
     } //namespace backup
 } //namespace catalogue
 #endif // BACKUP_HANDLER_H

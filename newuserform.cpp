@@ -19,10 +19,12 @@ NewUserForm::~NewUserForm()
 
 void NewUserForm::on_save_button__clicked()
 {
+    using namespace std::literals;
+
     catalogue::domain::type_naming::UserPtr user(new catalogue::domain::compound_types::Student);
     if (auto student = dynamic_cast<catalogue::domain::compound_types::Student*>(user.get())) {
 
-        student->SetName(ui->name_->text().toStdString() + ui->surname_->text().toStdString());
+        student->SetName(ui->name_->text().toStdString() + " "s + ui->surname_->text().toStdString());
         if (ui->gender_->currentText() == "Male") {
             student->SetGender(catalogue::domain::components::types::Gender::MALE);
         } else {

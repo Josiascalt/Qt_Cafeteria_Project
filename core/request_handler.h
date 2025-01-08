@@ -14,9 +14,13 @@ namespace catalogue {
         class RequestHandler {
         public:
             RequestHandler(const backup::UserDataPaths& paths);
+
             bool AddUser(UserPtr&& user);
             const UserPtr& GetUserByIdentifier(domain::components::types::Identifier identifier);
             const std::deque<UserPtr>& GetUsers() const;
+
+        private:
+            void GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier);
         private:
             backup::UserDataBackup user_data_;
             database::UserCatalogue catalogue_;

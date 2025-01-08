@@ -35,7 +35,7 @@ UserDataPaths& UserDataPaths::SetGroupsPath(fs::path groups_path) {
 
 //struct UserDataPaths member functions definition
 UserDataBackup::UserDataBackup(const UserDataPaths& user_data)
-    : user_queue_(user_data.metadata.queue)
+    : user_types_(user_data.metadata.queue)
     , names_(user_data.names)
     , identifiers_(user_data.identifiers)
     , genders_(user_data.genders)
@@ -46,7 +46,7 @@ UserDataBackup::UserDataBackup(const UserDataPaths& user_data)
 
 std::deque<UserPtr> UserDataBackup::Deserialize() {
     std::deque<UserPtr> result;
-    auto total_users = user_queue_.GetSize();
+    auto total_users = user_types_.GetSize();
 
     for (Size index = 0; index < total_users; index++) {
         auto user = DeserializeMetadata();
@@ -82,7 +82,7 @@ std::deque<UserPtr> UserDataBackup::Deserialize() {
 UserPtr UserDataBackup::DeserializeMetadata() {
     domain::compound_types::UserType user_type = {};
 
-    user_queue_.Read(&user_type);
+    user_types_.Read(&user_type);
 
     return domain::compound_types::MakeUser(user_type);
 }

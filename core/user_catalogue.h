@@ -9,10 +9,10 @@
 
 #include "domain.h"
 
-namespace catalogue {
+namespace cafeteria_app {
     namespace database {
 
-        using namespace domain::type_naming;
+        using namespace domain::standardized_types;
         using namespace domain::components;
 
         class UserCatalogue {
@@ -35,5 +35,5 @@ namespace catalogue {
             std::unordered_map<types::Identifier, Index> identifier_to_user_;
         };
     } //namespace database
-} //namespace catalogue
+} //namespace cafeteria_app
 #endif // USER_CATALOGUE_H

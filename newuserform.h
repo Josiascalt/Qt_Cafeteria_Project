@@ -14,7 +14,7 @@ class NewUserForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit NewUserForm(QWidget *parent = nullptr, catalogue::request_handler::RequestHandler *handler = nullptr);
+    explicit NewUserForm(QWidget *parent = nullptr, cafeteria_app::request_handler::RequestHandler *handler = nullptr);
     ~NewUserForm();
 
 private slots:
@@ -22,7 +22,7 @@ private slots:
 
 private:
     Ui::NewUserForm *ui;
-    catalogue::request_handler::RequestHandler *handler_;
+    cafeteria_app::request_handler::RequestHandler *handler_;
 };
 
 #endif // NEWUSERFORM_H

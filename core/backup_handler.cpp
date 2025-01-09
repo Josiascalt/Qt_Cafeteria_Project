@@ -2,10 +2,10 @@
 
 #include "backup_handler.h"
 
-namespace catalogue {
+namespace cafeteria_app {
 namespace backup {
 
-using namespace domain::type_naming;
+using namespace domain::standardized_types;
 
 //struct UserDataPaths member functions definition
 UserDataPaths& UserDataPaths::SetMetadataPaths(fs::path queue_path) {
@@ -71,7 +71,7 @@ std::deque<UserPtr> UserDataBackup::Deserialize() {
             result.push_back(std::move(user));
         }
         else {
-            throw exceptions::InvalidUserPtr{};
+            throw exceptions::InvalidPtr{};
 
         }
     }
@@ -89,4 +89,4 @@ UserPtr UserDataBackup::DeserializeMetadata() {
 
 
 } //namespace data_manager
-} //namespace catalogue
+} //namespace cafeteria_app

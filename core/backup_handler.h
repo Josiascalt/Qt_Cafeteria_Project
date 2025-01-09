@@ -3,18 +3,16 @@
 #pragma once
 
 #include <deque>
-#include <chrono>
-
 #include "domain.h"
 #include "file_handler.h"
 
-namespace catalogue {
+namespace cafeteria_app {
     namespace backup {
 
-        using namespace domain::type_naming;
+        using namespace domain::standardized_types;
 
         namespace exceptions {
-        struct InvalidUserPtr {};
+        struct InvalidPtr {};
         }
 
         struct UserDataPaths {
@@ -42,7 +40,7 @@ namespace catalogue {
             template <typename T>
             inline void Serialize(T* user) {
                 if (!user) {
-                    throw exceptions::InvalidUserPtr{};
+                    throw exceptions::InvalidPtr{};
                 }
                 //metadata
                 SerializeMetadata(user);
@@ -79,37 +77,34 @@ namespace catalogue {
             //Metadata
             file_handler::BinaryFile<domain::compound_types::UserType> user_types_;
             //Data
-            file_handler::BinaryFile<domain::components::Nameable> names_;
-            file_handler::BinaryFile<domain::components::Identifiable> identifiers_;
-            file_handler::BinaryFile<domain::components::Genderable> genders_;
-            file_handler::BinaryFile<domain::components::Groupable> groups_;
+            file_handler::BinaryFile<domain::components::Nameable::Type> names_;
+            file_handler::BinaryFile<domain::components::Identifiable::Type> identifiers_;
+            file_handler::BinaryFile<domain::components::Genderable::Type> genders_;
+            file_handler::BinaryFile<domain::components::Groupable::Type> groups_;
         };
 
         class RecordDataBackup {
         public:
-            void Serialize(domain::components::Identifiable* identifiable) {
-                if (identifiable) {
-                    identifiable -> GetIdentifier();
-                }
+            void Serialize(domain::components::Identifiable* identifiable, TimePoint timepoint) {
+                if (!identifiable) {
+                    throw exceptions::InvalidPtr{};
+                    
+                } 
 
-                auto now = std::chrono::system_clock::now();
-                auto formatted_time = std::chrono::system_clock::to_time_t(now);
-                auto localtime = *std::localtime(&formatted_time);
+                auto identifier = identifiable -> value;
+                this -> identifiers_.Write(&identifier);
+                this -> timepoints_.Write(&timepoint);
 
-
-                
             }
 
             void Deserialize();
+
+            ~RecordDataBackup() {
+            }
+
         private:
-            struct Session {
-                std::time_t date;
-                Index first;
-                Index last;
-            };
-
             void SerializeMetadata() {
-
+                
             }
 
             void DeserializeMetadata() {
@@ -117,14 +112,12 @@ namespace catalogue {
             }
 
         private:
-            //Cache
-            Session current_session_;
             //Metadata
-            file_handler::BinaryFile sessions_;
+            file_handler::BinaryFile<Session> sessions_;
             //Data
-            file_handler::BinaryFile identifiers_;
-            file_handler::BinaryFile timepoints_;
+            file_handler::BinaryFile<domain::components::Identifiable::Type> identifiers_;
+            file_handler::BinaryFile<TimePoint> timepoints_;
         };
     } //namespace backup
-} //namespace catalogue
+} //namespace cafeteria_app
 #endif // BACKUP_HANDLER_H

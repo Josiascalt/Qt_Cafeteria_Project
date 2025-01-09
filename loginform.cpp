@@ -3,7 +3,7 @@
 #include "ui_loginform.h"
 
 
-LoginForm::LoginForm(QWidget *parent, catalogue::request_handler::RequestHandler *handler)
+LoginForm::LoginForm(QWidget *parent, cafeteria_app::request_handler::RequestHandler *handler)
     : QMainWindow(parent)
     , ui(new Ui::LoginForm)
     , dashboard_(nullptr)

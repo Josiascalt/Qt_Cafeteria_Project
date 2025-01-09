@@ -17,7 +17,7 @@ class LoginForm : public QMainWindow
     Q_OBJECT
 
 public:
-    LoginForm(QWidget *parent = nullptr, catalogue::request_handler::RequestHandler *handler = nullptr);
+    LoginForm(QWidget *parent = nullptr, cafeteria_app::request_handler::RequestHandler *handler = nullptr);
     ~LoginForm();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 private:
     Ui::LoginForm *ui;
     Dashboard *dashboard_;
-    catalogue::request_handler::RequestHandler *handler_;
+    cafeteria_app::request_handler::RequestHandler *handler_;
 
 };
 #endif // LOGINFORM_H

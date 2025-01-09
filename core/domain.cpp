@@ -2,7 +2,7 @@
 
 #include <variant>
 
-namespace catalogue {
+namespace cafeteria_app {
 namespace domain {
 namespace components {
 namespace types {
@@ -44,6 +44,6 @@ bool Group::operator!=(const Group& other) const {
 namespace compound_types {
 } //namespace compound_types
 } // namespace domain
-} // namespace catalogue
+} // namespace cafeteria_app
 
 

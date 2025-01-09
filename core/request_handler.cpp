@@ -4,7 +4,7 @@
 #include "request_handler.h"
 #include "..\..\..\proyecto_cafeteria\external\QR-Code-generator\pluggin.hpp"
 
-namespace catalogue {
+namespace cafeteria_app {
     namespace request_handler {
         //class RequestHandler member functions definition
         RequestHandler::RequestHandler(const backup::UserDataPaths& paths)
@@ -35,4 +35,4 @@ namespace catalogue {
         }
 
     } //namespace request_handler
-} //namespace catalogue
+} //namespace cafeteria_app

@@ -6,10 +6,10 @@
 #include "user_catalogue.h"
 #include "backup_handler.h"
 
-namespace catalogue {
+namespace cafeteria_app {
     namespace request_handler {
 
-        using namespace domain::type_naming;
+        using namespace domain::standardized_types;
 
         class RequestHandler {
         public:
@@ -26,5 +26,5 @@ namespace catalogue {
             database::UserCatalogue catalogue_;
         };
     } //namespace request_handler
-} //namespace catalogue
+} //namespace cafeteria_app
 #endif // REQUEST_HANDLER_H

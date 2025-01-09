@@ -15,7 +15,7 @@ class Dashboard : public QWidget
     Q_OBJECT
 
 public:
-    explicit Dashboard(QWidget *parent = nullptr, catalogue::request_handler::RequestHandler *handler = nullptr, QMainWindow* login_form = nullptr);
+    explicit Dashboard(QWidget *parent = nullptr, cafeteria_app::request_handler::RequestHandler *handler = nullptr, QMainWindow* login_form = nullptr);
     ~Dashboard();
 
 private slots:
@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::Dashboard *ui;
-    catalogue::request_handler::RequestHandler *handler_;
+    cafeteria_app::request_handler::RequestHandler *handler_;
     QMainWindow *login_form_;
     NewUserForm *new_user_form_;
 

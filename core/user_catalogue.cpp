@@ -4,9 +4,9 @@
 #include "user_catalogue.h"
 #include "utilities/utilities.h"
 
-namespace catalogue {
+namespace cafeteria_app {
 namespace database {
-    using namespace domain::type_naming;
+    using namespace domain::standardized_types;
     using namespace domain::components;
 
         //UserCatalogue class member functions definition
@@ -71,4 +71,4 @@ namespace database {
         }
 
     } //namespace database
-} //namespace catalogue
+} //namespace cafeteria_app

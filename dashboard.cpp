@@ -1,7 +1,7 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
 
-Dashboard::Dashboard(QWidget *parent, catalogue::request_handler::RequestHandler *handler, QMainWindow *login_form)
+Dashboard::Dashboard(QWidget *parent, cafeteria_app::request_handler::RequestHandler *handler, QMainWindow *login_form)
     : QWidget(parent)
     , ui(new Ui::Dashboard)
     , handler_(handler)
@@ -24,9 +24,9 @@ Dashboard::Dashboard(QWidget *parent, catalogue::request_handler::RequestHandler
     if (handler_) {
         for (const auto& user : handler_->GetUsers()) {
             ui->database_viewer_->insertRow(1);
-            if (auto student = dynamic_cast<const catalogue::domain::compound_types::Student*>(user.get())) {
+            if (auto student = dynamic_cast<const cafeteria_app::domain::compound_types::Student*>(user.get())) {
                 ui->database_viewer_->setItem(1,0, new QTableWidgetItem(student->GetName().c_str()));
-                ui->database_viewer_->setItem(1,1, new QTableWidgetItem(student->GetGender() == catalogue::domain::components::types::Gender::MALE ? "Male" : "Female"));
+                ui->database_viewer_->setItem(1,1, new QTableWidgetItem(student->GetGender() == cafeteria_app::domain::components::types::Gender::MALE ? "Male" : "Female"));
                 ui->database_viewer_->setItem(1,2, new QTableWidgetItem(student->GetGroup().IsTAC() ? "TAC" : "TAIS"));
             }
         }

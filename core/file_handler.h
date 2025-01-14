@@ -47,6 +47,111 @@
             return path;
         }
 
+
+        template <typename T>
+        class File {
+        public:
+            typedef T Type;
+
+        public:
+            File() = default;
+
+            virtual void Write(Type* source
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+                
+                auto bytes_to_write = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsWriteIndexValid(*index) 
+                                ? this -> ToByteSize(*index) 
+                                : this -> write_index_;
+
+                file_.seekp(byte_index);
+
+                if (file_) {
+                    file_.write(reinterpret_cast<char*>(source), bytes_to_write);
+
+                    if (auto current_byte_index = byte_index + bytes_to_write; 
+                        current_byte_index > write_index_) {
+                        size_ = this -> ToElementSize(current_byte_index);
+                        write_index_ = current_byte_index;
+                    }
+                }
+            }
+
+
+            virtual void Read(Type* target
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+
+                auto bytes_to_read = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsReadIndexValid(*index) && this -> IsWithinRange(*index, count)
+                                ? this -> ToByteSize(*index) 
+                                : this -> read_index_;
+
+                file_.seekg(byte_index);
+
+                if (file_) {
+                    file_.read(reinterpret_cast<char*>(target), bytes_to_read);
+                    
+                    read_index_ = byte_index + bytes_to_read;
+                }
+            }
+
+            Size GetSize() const {
+                return size_;
+            }
+
+        protected:
+            bool IsWriteIndexValid(Index index) const {
+                if (index > this -> size_) {
+                    throw exceptions::InvalidIndex{};
+
+                    return false;
+                }
+                
+                return true;
+            }
+
+            bool IsReadIndexValid(Index index) const {
+                if (index >= this -> size_) {
+                    throw exceptions::InvalidIndex{};
+
+                    return false;
+                }
+                
+                return true;
+            }
+
+            bool IsWithinRange(Index index, Size count) const {
+                if ((index + count) > this -> size_) {
+                    throw std::out_of_range{"The sum of the arguments <index> and <count> is greater than the current elements count."};
+
+                    return false;
+                }
+
+                return true;
+            }
+
+            Size ToByteSize(Size num_of_items) const {
+                return static_cast<Size>(num_of_items * sizeof(Type));
+            }
+
+            Size ToElementSize(Size num_of_bytes) const {
+                return static_cast<Size>(num_of_bytes / sizeof(Type));
+            }
+            
+            ~File() {
+                file_.close();
+            }
+
+        protected:
+            std::fstream file_;
+
+            Size size_;
+            Index write_index_;
+            Index read_index_;
+        };
+
         template <typename T>
         class BinaryFile {
         public:
@@ -157,6 +262,108 @@
             Index write_index_;
             Index read_index_;
         };
+    
+        /*class TextFile {
+        public:
+            TextFile(const fs::path& path) 
+            : file_(path, std::ios::out | std::ios::in)
+            {
+                file_.seekp(0, std::ios::end);
+                size_ = file_.tellp();
+            }
+
+            
+            void Write(Type* source
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+                
+                auto bytes_to_write = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsWriteIndexValid(*index) 
+                                ? this -> ToByteSize(*index) 
+                                : this -> write_index_;
+
+                file_.seekp(byte_index);
+
+                if (file_) {
+                    file_.write(reinterpret_cast<char*>(source), bytes_to_write);
+
+                    if (auto current_byte_index = byte_index + bytes_to_write; 
+                        current_byte_index > write_index_) {
+                        size_ = this -> ToElementSize(current_byte_index);
+                        write_index_ = current_byte_index;
+                    }
+                }
+            }
+
+            void Read(Type* target
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+
+                auto bytes_to_read = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsReadIndexValid(*index) && this -> IsWithinRange(*index, count)
+                                ? this -> ToByteSize(*index) 
+                                : this -> read_index_;
+
+                file_.seekg(byte_index);
+
+                if (file_) {
+                    file_.read(reinterpret_cast<char*>(target), bytes_to_read);
+                    
+                    read_index_ = byte_index + bytes_to_read;
+                }
+            }
+
+            void Write(Type* source
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+                
+                auto bytes_to_write = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsWriteIndexValid(*index) 
+                                ? this -> ToByteSize(*index) 
+                                : this -> write_index_;
+
+                file_.seekp(byte_index);
+
+                if (file_) {
+                    file_.write(reinterpret_cast<char*>(source), bytes_to_write);
+
+                    if (auto current_byte_index = byte_index + bytes_to_write; 
+                        current_byte_index > write_index_) {
+                        size_ = this -> ToElementSize(current_byte_index);
+                        write_index_ = current_byte_index;
+                    }
+                }
+            }
+
+            void Read(Type* target
+                    , Size count = 1
+                    , std::optional<Index> index = std::nullopt) {
+
+                auto bytes_to_read = this -> ToByteSize(count);
+                auto byte_index = index && this -> IsReadIndexValid(*index) && this -> IsWithinRange(*index, count)
+                                ? this -> ToByteSize(*index) 
+                                : this -> read_index_;
+
+                file_.seekg(byte_index);
+
+                if (file_) {
+                    file_.read(reinterpret_cast<char*>(target), bytes_to_read);
+                    
+                    read_index_ = byte_index + bytes_to_read;
+                }
+            }
+
+        private:
+            std::fstream file_;
+
+            Size size_;
+            Index write_index_;
+            Index read_index_;
+        };*/
+
+        
     } //namespace file_handler
+
+
 
     #endif // FILE_HANDLER_H

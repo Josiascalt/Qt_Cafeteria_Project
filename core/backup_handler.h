@@ -83,7 +83,7 @@ namespace cafeteria_app {
             file_handler::BinaryFile<domain::components::Groupable::Type> groups_;
         };
 
-        class RecordDataBackup {
+        /*class RecordDataBackup {
         public:
             void Serialize(domain::components::Identifiable* identifiable, TimePoint timepoint) {
                 if (!identifiable) {
@@ -117,7 +117,7 @@ namespace cafeteria_app {
             //Data
             file_handler::BinaryFile<domain::components::Identifiable::Type> identifiers_;
             file_handler::BinaryFile<TimePoint> timepoints_;
-        };
+        };*/
     } //namespace backup
 } //namespace cafeteria_app
 #endif // BACKUP_HANDLER_H

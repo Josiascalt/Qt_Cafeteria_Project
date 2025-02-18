@@ -11,42 +11,45 @@ CONFIG += c++17
 SOURCES += \
     core/backup_handler.cpp \
     core/domain.cpp \
-    core/external/excel_maker/OpenXLSX/IZipArchive.cpp \
-    core/external/excel_maker/OpenXLSX/OpenXLSX-Exports.cpp \
-    core/external/excel_maker/OpenXLSX/XLCell.cpp \
-    core/external/excel_maker/OpenXLSX/XLCellIterator.cpp \
-    core/external/excel_maker/OpenXLSX/XLCellRange.cpp \
-    core/external/excel_maker/OpenXLSX/XLCellReference.cpp \
-    core/external/excel_maker/OpenXLSX/XLCellValue.cpp \
-    core/external/excel_maker/OpenXLSX/XLColor.cpp \
-    core/external/excel_maker/OpenXLSX/XLColumn.cpp \
-    core/external/excel_maker/OpenXLSX/XLCommandQuery.cpp \
-    core/external/excel_maker/OpenXLSX/XLConstants.cpp \
-    core/external/excel_maker/OpenXLSX/XLContentTypes.cpp \
-    core/external/excel_maker/OpenXLSX/XLDateTime.cpp \
-    core/external/excel_maker/OpenXLSX/XLDocument.cpp \
-    core/external/excel_maker/OpenXLSX/XLException.cpp \
-    core/external/excel_maker/OpenXLSX/XLFormula.cpp \
-    core/external/excel_maker/OpenXLSX/XLIterator.cpp \
-    core/external/excel_maker/OpenXLSX/XLMergeCells.cpp \
-    core/external/excel_maker/OpenXLSX/XLProperties.cpp \
-    core/external/excel_maker/OpenXLSX/XLRelationships.cpp \
-    core/external/excel_maker/OpenXLSX/XLRow.cpp \
-    core/external/excel_maker/OpenXLSX/XLRowData.cpp \
-    core/external/excel_maker/OpenXLSX/XLSharedStrings.cpp \
-    core/external/excel_maker/OpenXLSX/XLSheet.cpp \
-    core/external/excel_maker/OpenXLSX/XLStyles.cpp \
-    core/external/excel_maker/OpenXLSX/XLUtilities.cpp \
-    core/external/excel_maker/OpenXLSX/XLWorkbook.cpp \
-    core/external/excel_maker/OpenXLSX/XLXmlData.cpp \
-    core/external/excel_maker/OpenXLSX/XLXmlFile.cpp \
-    core/external/excel_maker/OpenXLSX/XLXmlParser.cpp \
-    core/external/excel_maker/OpenXLSX/XLZipArchive.cpp \
-    core/external/excel_maker/OpenXLSX/pugixml.cpp \
+    core/external/excel_maker/src/IZipArchive.cpp \
+    core/external/excel_maker/src/OpenXLSX-Exports.cpp \
+    core/external/excel_maker/src/XLCell.cpp \
+    core/external/excel_maker/src/XLCellIterator.cpp \
+    core/external/excel_maker/src/XLCellRange.cpp \
+    core/external/excel_maker/src/XLCellReference.cpp \
+    core/external/excel_maker/src/XLCellValue.cpp \
+    core/external/excel_maker/src/XLColor.cpp \
+    core/external/excel_maker/src/XLColumn.cpp \
+    core/external/excel_maker/src/XLCommandQuery.cpp \
+    core/external/excel_maker/src/XLConstants.cpp \
+    core/external/excel_maker/src/XLContentTypes.cpp \
+    core/external/excel_maker/src/XLDateTime.cpp \
+    core/external/excel_maker/src/XLDocument.cpp \
+    core/external/excel_maker/src/XLException.cpp \
+    core/external/excel_maker/src/XLFormula.cpp \
+    core/external/excel_maker/src/XLIterator.cpp \
+    core/external/excel_maker/src/XLMergeCells.cpp \
+    core/external/excel_maker/src/XLProperties.cpp \
+    core/external/excel_maker/src/XLRelationships.cpp \
+    core/external/excel_maker/src/XLRow.cpp \
+    core/external/excel_maker/src/XLRowData.cpp \
+    core/external/excel_maker/src/XLSharedStrings.cpp \
+    core/external/excel_maker/src/XLSheet.cpp \
+    core/external/excel_maker/src/XLStyles.cpp \
+    core/external/excel_maker/src/XLUtilities.cpp \
+    core/external/excel_maker/src/XLWorkbook.cpp \
+    core/external/excel_maker/src/XLXmlData.cpp \
+    core/external/excel_maker/src/XLXmlFile.cpp \
+    core/external/excel_maker/src/XLXmlParser.cpp \
+    core/external/excel_maker/src/XLZipArchive.cpp \
+    core/external/excel_maker/src/pugixml.cpp \
     core/external/qr_maker/src/qrcodegen.cpp \
     core/file_handler.cpp \
     core/request_handler.cpp \
     core/user_catalogue.cpp \
+    core/utilities/json/json.cpp \
+    core/utilities/json/json_builder.cpp \
+    core/utilities/json/json_reader.cpp \
     dashboard.cpp \
     main.cpp \
     loginform.cpp \
@@ -55,42 +58,42 @@ SOURCES += \
 HEADERS += \
     core/backup_handler.h \
     core/domain.h \
-    core/external/excel_maker/OpenXLSX/IZipArchive.hpp \
-    core/external/excel_maker/OpenXLSX/OpenXLSX-Exports.hpp \
-    core/external/excel_maker/OpenXLSX/OpenXLSX.hpp \
-    core/external/excel_maker/OpenXLSX/XLCell.hpp \
-    core/external/excel_maker/OpenXLSX/XLCellIterator.hpp \
-    core/external/excel_maker/OpenXLSX/XLCellRange.hpp \
-    core/external/excel_maker/OpenXLSX/XLCellReference.hpp \
-    core/external/excel_maker/OpenXLSX/XLCellValue.hpp \
-    core/external/excel_maker/OpenXLSX/XLColor.hpp \
-    core/external/excel_maker/OpenXLSX/XLColumn.hpp \
-    core/external/excel_maker/OpenXLSX/XLCommandQuery.hpp \
-    core/external/excel_maker/OpenXLSX/XLConstants.hpp \
-    core/external/excel_maker/OpenXLSX/XLContentTypes.hpp \
-    core/external/excel_maker/OpenXLSX/XLDateTime.hpp \
-    core/external/excel_maker/OpenXLSX/XLDocument.hpp \
-    core/external/excel_maker/OpenXLSX/XLException.hpp \
-    core/external/excel_maker/OpenXLSX/XLFormula.hpp \
-    core/external/excel_maker/OpenXLSX/XLIterator.hpp \
-    core/external/excel_maker/OpenXLSX/XLMergeCells.hpp \
-    core/external/excel_maker/OpenXLSX/XLProperties.hpp \
-    core/external/excel_maker/OpenXLSX/XLRelationships.hpp \
-    core/external/excel_maker/OpenXLSX/XLRow.hpp \
-    core/external/excel_maker/OpenXLSX/XLRowData.hpp \
-    core/external/excel_maker/OpenXLSX/XLSharedStrings.hpp \
-    core/external/excel_maker/OpenXLSX/XLSheet.hpp \
-    core/external/excel_maker/OpenXLSX/XLStyles.hpp \
-    core/external/excel_maker/OpenXLSX/XLUtilities.hpp \
-    core/external/excel_maker/OpenXLSX/XLWorkbook.hpp \
-    core/external/excel_maker/OpenXLSX/XLXmlData.hpp \
-    core/external/excel_maker/OpenXLSX/XLXmlFile.hpp \
-    core/external/excel_maker/OpenXLSX/XLXmlParser.hpp \
-    core/external/excel_maker/OpenXLSX/XLZipArchive.hpp \
-    core/external/excel_maker/OpenXLSX/pugiconfig.hpp \
-    core/external/excel_maker/OpenXLSX/pugixml.hpp \
-    core/external/excel_maker/OpenXLSX/zippy.hpp \
     core/external/excel_maker/pluggin.hpp \
+    core/external/excel_maker/src/IZipArchive.hpp \
+    core/external/excel_maker/src/OpenXLSX-Exports.hpp \
+    core/external/excel_maker/src/OpenXLSX.hpp \
+    core/external/excel_maker/src/XLCell.hpp \
+    core/external/excel_maker/src/XLCellIterator.hpp \
+    core/external/excel_maker/src/XLCellRange.hpp \
+    core/external/excel_maker/src/XLCellReference.hpp \
+    core/external/excel_maker/src/XLCellValue.hpp \
+    core/external/excel_maker/src/XLColor.hpp \
+    core/external/excel_maker/src/XLColumn.hpp \
+    core/external/excel_maker/src/XLCommandQuery.hpp \
+    core/external/excel_maker/src/XLConstants.hpp \
+    core/external/excel_maker/src/XLContentTypes.hpp \
+    core/external/excel_maker/src/XLDateTime.hpp \
+    core/external/excel_maker/src/XLDocument.hpp \
+    core/external/excel_maker/src/XLException.hpp \
+    core/external/excel_maker/src/XLFormula.hpp \
+    core/external/excel_maker/src/XLIterator.hpp \
+    core/external/excel_maker/src/XLMergeCells.hpp \
+    core/external/excel_maker/src/XLProperties.hpp \
+    core/external/excel_maker/src/XLRelationships.hpp \
+    core/external/excel_maker/src/XLRow.hpp \
+    core/external/excel_maker/src/XLRowData.hpp \
+    core/external/excel_maker/src/XLSharedStrings.hpp \
+    core/external/excel_maker/src/XLSheet.hpp \
+    core/external/excel_maker/src/XLStyles.hpp \
+    core/external/excel_maker/src/XLUtilities.hpp \
+    core/external/excel_maker/src/XLWorkbook.hpp \
+    core/external/excel_maker/src/XLXmlData.hpp \
+    core/external/excel_maker/src/XLXmlFile.hpp \
+    core/external/excel_maker/src/XLXmlParser.hpp \
+    core/external/excel_maker/src/XLZipArchive.hpp \
+    core/external/excel_maker/src/pugiconfig.hpp \
+    core/external/excel_maker/src/pugixml.hpp \
+    core/external/excel_maker/src/zippy.hpp \
     core/external/qr_maker/pluggin.hpp \
     core/external/qr_maker/src/qrcodegen.hpp \
     core/file_handler.h \
@@ -100,6 +103,9 @@ HEADERS += \
     core/tests.h \
     core/user_catalogue.h \
     core/utilities/encoder.h \
+    core/utilities/json/json.h \
+    core/utilities/json/json_builder.h \
+    core/utilities/json/json_reader.h \
     core/utilities/utilities.h \
     dashboard.h \
     loginform.h \

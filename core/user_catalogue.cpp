@@ -56,15 +56,12 @@ namespace database {
         }
 
         UserCatalogue::RawIdentifier UserCatalogue::AssignIdentifier(Identifiable* identifiable_user) const {
+            static const unsigned int IDENTIFIER_LENGTH = 100;
             std::string raw_identifier;
 
-            while (true) {
-                raw_identifier = utilities::GenerateRandomStr(100);
+            while (raw_identifier.empty() || !identifier_to_user_.count(identifiable_user->GetIdentifier())) {
+                raw_identifier = utilities::GenerateRandomStr(IDENTIFIER_LENGTH);
                 identifiable_user->SetIdentifier(raw_identifier);
-
-                if (!identifier_to_user_.count(identifiable_user->GetIdentifier())) {
-                    break;
-                }
             }
 
             return raw_identifier;

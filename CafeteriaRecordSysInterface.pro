@@ -49,7 +49,6 @@ SOURCES += \
     core/user_catalogue.cpp \
     core/utilities/json/json.cpp \
     core/utilities/json/json_builder.cpp \
-    core/utilities/json/json_reader.cpp \
     dashboard.cpp \
     main.cpp \
     loginform.cpp \
@@ -105,7 +104,6 @@ HEADERS += \
     core/utilities/encoder.h \
     core/utilities/json/json.h \
     core/utilities/json/json_builder.h \
-    core/utilities/json/json_reader.h \
     core/utilities/utilities.h \
     dashboard.h \
     loginform.h \

@@ -5,7 +5,7 @@
 #include <string>
 
 
-#include "src/qrcodegen.hpp"
+#include "src\qrcodegen.hpp"
 
 namespace qrcodegen {
     namespace pluggin {

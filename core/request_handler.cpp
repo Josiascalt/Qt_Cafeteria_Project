@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "request_handler.h"
-#include "external/qr_maker/pluggin.hpp"
+#include "external\qr_maker\pluggin.hpp"
 
 namespace cafeteria_app {
     namespace request_handler {

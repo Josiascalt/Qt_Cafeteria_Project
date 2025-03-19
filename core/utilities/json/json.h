@@ -5,6 +5,8 @@
 #include <string>
 #include <variant>
 #include <vector>
+//for std::filesystem::path
+#include <filesystem>
 
 namespace json {
 
@@ -142,5 +144,9 @@ inline bool operator!=(const Document& lhs, const Document& rhs) {
 Document Load(std::istream& input);
 
 void Print(const Document& doc, std::ostream& output);
+
+std::ostream& operator<<(std::ostream& out, const Document& doc);
+
+std::istream& operator>>(std::istream& in, Document& doc);
 
 }  // namespace json

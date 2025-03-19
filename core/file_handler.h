@@ -8,6 +8,10 @@
 #include <optional>
 #include <cstdint>
 #include <array>
+#include <utility>
+#include <memory>
+
+#include "utilities\json\json.h"
 
 namespace fs = std::filesystem;
 
@@ -22,28 +26,28 @@ namespace file_handler {
 
     using namespace literals;
 
-    inline static fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path = ""_p) {
+    static fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path = ""_p) {
         fs::path path = parent_path / fs::path(path_to_validate);
-        if (!std::filesystem::exists(path)) {
-            if (path.has_extension()) {
-                static std::ofstream new_file;
-                new_file.open(path);
-                if (new_file) {
-                    new_file.close();
-                }
-                else {
-                    throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
-                }
+        if (!fs::exists(path)) {
+            if (!path.has_extension()) {
+                fs::create_directory(path);
+                return path;
+            }
+            
+            static std::ofstream new_file;
+            new_file.open(path);
 
+            if (new_file) {
+                new_file.close();
             }
             else {
-                fs::create_directory(path);
+                throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
             }
         }
 
         return path;
     }
-    
+
     //Overload fstream operator<< for accepting arrays
     template <typename Data, size_t Capacity>
     std::fstream& operator<<(std::fstream& out, std::array<Data, Capacity> data) {
@@ -57,14 +61,148 @@ namespace file_handler {
     template <typename T>
     class File {
     public:
-        File() = default;
+        typedef T Type;
+        enum class Mode : bool {
+            TEXT,
+            BINARY
+        };
+        
+    public:
+        File(const fs::path& path, Mode mode = Mode::TEXT)
+        : FILENAME_(path)
+        , MODE_(mode)
+        {
+            OpenFile();
+            InitProps();
+        } 
 
-        Size GetSize() const {
+        virtual Size GetSize() const {
             return this -> ToElementSize(this -> size_);
         }
 
+        virtual bool IsEmpty() const {
+            return size_ == 0;
+        }
+
+        virtual void Reset() {
+            file_.clear();
+
+            GetFile().close();
+            OpenFile(true);
+            InitProps();
+        }
+
+        virtual Index Write(T* source
+                         , Size count = 1
+                         , std::optional<Index> index = std::nullopt) {
+
+            if (count > 0) {
+                if (!source) {
+                    throw std::invalid_argument{"A nullptr was passed when calling File<T>::WriteData(...)"};
+                }
+                
+                SetWriteIndex(index);
+                GetFile().write(reinterpret_cast<char*>(source), ToByteSize(count));
+                UpdateWriteIndexAndSize();
+            }
+
+            return ToElementSize(write_index_);
+        }
+
+        template <typename CompatibleType>
+        Index PutInStream(const CompatibleType* source
+                       , std::optional<Index> index = std::nullopt) {
+
+            if (!source) {
+                throw std::invalid_argument{"A nullptr was passed when calling File<T>::WriteData(...)"};
+            }
+            
+            SetWriteIndex(index);
+            GetFile() << *source;
+            UpdateWriteIndexAndSize();
+
+            return ToElementSize(write_index_);
+        }
+
+        virtual Index Read(T* target
+                        , Size count = 1
+                        , std::optional<Index> index = std::nullopt) {
+
+            if (count > 0) {
+                if (!target) {
+                    throw std::invalid_argument{"A nullptr was passed when calling File<T>::ReadData(...)"};
+                }
+    
+                const auto count_in_bytes = ToByteSize(count);
+
+                SetReadIndex(index);
+
+                if (!IsWithinRange(file_.tellg(), count_in_bytes)) {
+                    throw std::out_of_range{"When calling File<T>::ReadData(...), the required amount of data to read exceeds the existent data"};
+                }          
+                
+                GetFile().read(reinterpret_cast<char*>(target), count_in_bytes);
+                UpdateReadIndex();
+            }
+
+            return ToElementSize(read_index_);
+            
+        }    
+        
+        template <typename CompatibleType>
+        Index GetFromStream(CompatibleType* target
+                          , std::optional<Index> index = std::nullopt) {
+
+            if (!target) {
+                throw std::invalid_argument{"A nullptr was passed when calling File<T>::ReadData(...)"};
+            }
+
+            SetReadIndex(index); 
+            GetFile() >> *target;
+            UpdateReadIndex();
+            
+
+            return ToElementSize(read_index_);
+        }
     protected:
-        virtual void InitProps() {
+        virtual ~File() = default;
+
+    private:
+        std::fstream& GetFile() {
+            if (!file_) {
+                throw fs::filesystem_error {"Unexpected error, while attempting to use file.", std::make_error_code(std::errc::io_error)};
+            } 
+
+            return file_;
+        }
+
+        void OpenFile(bool trunc = false) {
+            std::ios_base::openmode open_mode;
+
+            if (trunc) {
+                switch (MODE_) {
+                    case Mode::TEXT:
+                        open_mode = std::ios_base::out | std::ios_base::in;
+                        break;
+                    case Mode::BINARY:
+                        open_mode = std::ios_base::out | std::ios_base::in | std::ios_base::binary;
+                        break;
+                }
+            } else {
+                switch (MODE_) {
+                    case Mode::TEXT:
+                        open_mode = std::ios_base::out | std::ios_base::in;
+                        break;
+                    case Mode::BINARY:
+                        open_mode = std::ios_base::out | std::ios_base::in | std::ios_base::binary;
+                        break;
+                }
+            }
+
+            GetFile().open(FILENAME_, open_mode);
+        }
+
+        void InitProps() {
             file_.seekp(0, std::ios::end);
             write_index_ = file_.tellp();
             size_ = write_index_;
@@ -72,82 +210,8 @@ namespace file_handler {
             file_.seekg(0, std::ios::beg);
             read_index_ = file_.tellg(); 
         }
-
-        template <typename CompatibleType, typename Func>
-        void WriteData(CompatibleType* source
-                     , Func write_func
-                     , std::optional<Index> index) {
-
-            if (!source) {
-                throw std::invalid_argument{"A nullptr was passed when calling File<T>::WriteData(...)"};
-            }
-            
-            Index current_index = index ? ToByteSize(*index) : this -> write_index_;
-
-            if (!this -> IsWriteIndexValid(current_index)) {
-                throw std::invalid_argument{"An invalid index was passed when calling File<T>::WriteData(...)"};
-            }
-
-            file_.seekp(current_index);
-
-            if (!file_) {
-                throw fs::filesystem_error {"Attempt to write in invalid file.", std::make_error_code(std::errc::io_error)};
-            } 
-
-            write_func(source);
-
-            if (Index current_byte_index = file_.tellp(); 
-                current_byte_index > this -> write_index_) {
-                write_index_ = current_byte_index;
-                size_ = write_index_; 
-            }
-        }
-
-        void ReadData(T* target
-                    , Size count
-                    , std::optional<Index> index) {
-            if (count == 0) {
-                return;
-            }
-
-            if (!target) {
-                throw std::invalid_argument{"A nullptr was passed when calling File<T>::ReadData(...)"};
-            }
-
-            auto current_index = index ? ToByteSize(*index) : this -> read_index_;
-
-            if (!this -> IsReadIndexValid(current_index)) {
-                if (index) {
-                    throw std::invalid_argument{"An invalid index was passed when calling File<T>::ReadData(...)"};
-                }
-                
-                //if the index was not passed by the user, so the index is set at the beginning of the file
-                current_index = 0;
-            }
-
-            auto bytes_to_read = this -> ToByteSize(count);
-
-            if (IsWithinRange(current_index, bytes_to_read)) {
-                throw std::out_of_range{"When calling File<T>::ReadData(...), the required amount of data to read exceeds the existent data"};
-            }          
-
-            file_.seekg(current_index);
-
-            if (!file_) {
-                throw fs::filesystem_error {"Attempt to read an invalid file.", std::make_error_code(std::errc::io_error)};
-            } 
-            
-            file_.read(reinterpret_cast<char*>(target), bytes_to_read);
-            
-            read_index_ = current_index + bytes_to_read;
-            
-        }
-
-        ~File() {
-            file_.close();
-        }
-
-    //private:
+  
+    private:
         Size ToByteSize(Size num_of_items) const {
             return static_cast<Size>(num_of_items * sizeof(T));
         }
@@ -156,6 +220,7 @@ namespace file_handler {
             return static_cast<Size>(num_of_bytes / sizeof(T));
         }
 
+    private:
         bool IsWriteIndexValid(Index index) const noexcept {
             return this -> size_ >= index;
         }
@@ -165,57 +230,93 @@ namespace file_handler {
         }
 
         bool IsWithinRange(Index index, Size count) const noexcept {
-            return count <= this -> size_ && (index + count) > this -> size_;
+            return count <= this -> size_ && (index + count) <= this -> size_;
         }
 
-    protected:
-        std::fstream file_;
+    private:
+        void SetWriteIndex(const std::optional<Index>& index) {
+            Index current_index = index ? ToByteSize(*index) : this -> write_index_;
+
+            if (!IsWriteIndexValid(current_index)) {
+                throw std::invalid_argument{"An invalid index was passed when calling File<T>::WriteData(...)"};
+            }
+
+            file_.seekp(current_index);
+        }
+
+        void SetReadIndex(const std::optional<Index>& index) {
+            auto current_index = index ? ToByteSize(*index) : this -> read_index_;
+
+            if (!IsReadIndexValid(current_index)) {
+                if (index) {
+                    throw std::invalid_argument{"An invalid index was passed when calling File<T>::ReadData(...)"};
+                }
+                
+                //if the index was not passed by the user, so the index is set at the beginning of the file
+                current_index = 0;
+            }
+
+            file_.seekg(current_index);
+
+        }
+        
+        //returns index of the last inserted byte
+        void UpdateWriteIndexAndSize() {
+            if (Index current_byte_index = file_.tellp();
+                current_byte_index > this -> write_index_) {
+                write_index_ = current_byte_index;
+                size_ = write_index_; 
+            }
+        }
+
+        void UpdateReadIndex() {
+            read_index_ = file_.tellg();
+        }
+    
+    private: //Data members
+        const fs::path& FILENAME_;
+        const Mode MODE_;
 
         Size size_;
         Index write_index_;
         Index read_index_;
+
+        std::fstream file_;
     };
 
     template <typename T>
-    class BinaryFile : public File<T> {
+    class BinaryFile final : public File<T> {
     public:
-        typedef T Type;
-    public:
-        BinaryFile(const fs::path& path)
+        BinaryFile(const fs::path& path):
+
+        File<T>(path, this -> Mode::BINARY)
         {
-            this -> file_.open(path, std::ios::out | std::ios::in | std::ios::binary);
-            this -> InitProps();
+        
         }
 
-        void Write(Type* source
-                 , Size count = 1
-                 , std::optional<Index> index = std::nullopt) 
-        {
-            auto count_in_bytes = this -> ToByteSize(count);
-            auto func = [&](Type* data){this -> file_.write(reinterpret_cast<char*>(data), count_in_bytes);};
-            this -> WriteData(source, func, index);
-        }
+        template <typename CompatibleType>
+        Index PutInStream(CompatibleType* source
+                        , std::optional<Index> index = std::nullopt) = delete;
 
-        void Read(Type* source
-                 , Size count = 1
-                 , std::optional<Index> index = std::nullopt) 
-        {
-            this -> ReadData(source, count, index);
-        }
     };
 
     class TextFile : public File<char> {
     public:
         TextFile(const fs::path& path);
 
-        template <typename T>
-        void Write(T* data, std::optional<Index> index = std::nullopt) {
-            auto func = [&](T* data){this -> file_ << *data;};
-            this -> WriteData(data, func, index);
-        }
-
-        std::string Read(Size count = 1, std::optional<Index> index = std::nullopt);
+        std::string Substr(Size count = 1, std::optional<Index> index = std::nullopt);
     };
     
+    class JsonFile : protected File<json::Document> {
+    public:
+        JsonFile(const fs::path& path, const Type* temp_doc = nullptr);
+        Type Get();
+        void Override(const Type* doc);
+        void Restore();
+    private:
+        const Type* temp_doc_;
+    };
+
+
 } //namespace file_handler
 #endif // FILE_HANDLER_H

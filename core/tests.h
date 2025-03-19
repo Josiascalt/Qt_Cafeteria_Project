@@ -24,11 +24,11 @@ namespace testing {
             bf->Write(&c);
             assert(bf -> GetSize() == 3ull);
             
-            tf->Write(&a);
+            tf->PutInStream(&a);
             assert(tf -> GetSize() == 1ull);
-            tf->Write(&b);
+            tf->PutInStream(&b);
             assert(tf -> GetSize() == 2ull);
-            tf->Write(&c);
+            tf->PutInStream(&c);
             assert(tf -> GetSize() == 3ull);
             
             //testing binary items
@@ -45,9 +45,9 @@ namespace testing {
             assert(bi2 == 5ull);
             
             //testing text items
-            auto ti0 = tf->Read();
-            auto ti1 = tf->Read();
-            auto ti2 = tf->Read();
+            auto ti0 = tf->Substr();
+            auto ti1 = tf->Substr();
+            auto ti2 = tf->Substr();
             assert(ti0 == "1" && ti0.size() == 1ull);
             assert(ti1 == "3" && ti1.size() == 1ull);
             assert(ti2 == "5" && ti2.size() == 1ull);
@@ -127,24 +127,24 @@ namespace testing {
             
             //reading text items
             
-            auto ti0 = tf->Read();
+            auto ti0 = tf->Substr();
             assert(ti0 == "1"s);
             assert(!ti0.empty());
             
-            auto ti1 = tf->Read();
+            auto ti1 = tf->Substr();
             assert(ti0 != ti1);
             assert(ti1 == "3"s);
             
-            auto ti2 = tf->Read(0);
+            auto ti2 = tf->Substr(0);
             assert(ti2.empty());
             assert(ti2 != ti1 && ti2 != ti0);
             
-            auto ti3 = tf->Read();
+            auto ti3 = tf->Substr();
             assert(ti3 == "5"s);
             assert(ti3.size() == 1);
             assert(!ti3.empty());
             
-            auto ti4 = tf->Read();
+            auto ti4 = tf->Substr();
             assert(ti4 == ti0);
             assert(ti4 != ti1);
             assert(ti4 != ti2);
@@ -154,20 +154,20 @@ namespace testing {
             assert(!ti4.empty());
             assert(ti4.size() == 1);
             
-            auto ti5 = tf->Read(1ull);
+            auto ti5 = tf->Substr(1ull);
             assert(ti5 == "3"s);
             assert(ti5 == ti1);
             
-            auto ti6 = tf->Read(0);
+            auto ti6 = tf->Substr(0);
             assert(ti6.empty());
             assert(ti6 == ""s);
             assert(ti6 == ti2);
             
-            auto ti7 = tf->Read(1);
+            auto ti7 = tf->Substr(1);
             assert(ti7[0] == '5');
             assert(ti7.size() == 1ull);
             
-            auto ti8 = tf->Read(3ull);
+            auto ti8 = tf->Substr(3ull);
             assert(ti8.size() == 3ull);
             assert(ti8 == "135"s);
             assert(ti8[0] == '1');
@@ -175,14 +175,14 @@ namespace testing {
             assert(ti8[2] == '5');
             assert(!ti8.empty());
             
-            auto ti9 = tf->Read(2ull);
+            auto ti9 = tf->Substr(2ull);
             assert(ti9.size() == 2ull);
             assert(ti9 == "13"s);
             assert(ti9[0] == '1');
             assert(ti9[1] == '3');
             assert(!ti9.empty());
             
-            auto ti10 = tf->Read(1ull);
+            auto ti10 = tf->Substr(1ull);
             assert(ti10.size() == 1ull);
             assert(!ti10.empty());
             assert(ti10 == "5"s);
@@ -240,23 +240,23 @@ namespace testing {
                 auto item_to_add3 = "11";
                 auto item_to_add4 = "13"s;
                 
-                tf->Write(&item_to_add1);
+                tf->PutInStream(&item_to_add1);
                 assert(tf->GetSize() == 4ull);
-                assert(tf->Read() == "7"s);
+                assert(tf->Substr() == "7"s);
                 
-                tf->Write(&item_to_add2);
+                tf->PutInStream(&item_to_add2);
                 assert(tf->GetSize() == 5ull);
-                assert(tf->Read() == "9"s);
+                assert(tf->Substr() == "9"s);
                 
-                tf->Write(&item_to_add3);
+                tf->PutInStream(&item_to_add3);
                 assert(tf->GetSize() == 7ull);
-                assert(tf->Read() == "1"s);
+                assert(tf->Substr() == "1"s);
                 
-                tf->Write(&item_to_add4);
+                tf->PutInStream(&item_to_add4);
                 assert(tf->GetSize() == 9ull);
-                assert(tf->Read(3ull) == "113"s);
+                assert(tf->Substr(3ull) == "113"s);
                 
-                assert(tf->Read(9ull) == "135791113"s);
+                assert(tf->Substr(9ull) == "135791113"s);
             }
             
         }
@@ -308,30 +308,30 @@ namespace testing {
             }
             
             {
-                assert(tf->Read(1, 0) == "1"s);
+                assert(tf->Substr(1, 0) == "1"s);
                 
-                assert(tf->Read(0, 0).empty());
+                assert(tf->Substr(0, 0).empty());
                 
                 std::string last_read_item;
                 
-                last_read_item = tf->Read(1ull, 8ull);
+                last_read_item = tf->Substr(1ull, 8ull);
                 assert(last_read_item == "3"s);
                 assert(last_read_item.size() == 1);
                 
-                last_read_item = tf->Read(3ull, 4ull);
+                last_read_item = tf->Substr(3ull, 4ull);
                 assert(last_read_item == "911"s);
                 assert(last_read_item.size() == 3);
                 
-                last_read_item = tf->Read(9ull, 0);
+                last_read_item = tf->Substr(9ull, 0);
                 assert(last_read_item == "135791113"s);
                 assert(last_read_item != "911"s);
                 assert(last_read_item.size() == 9);
                 
-                last_read_item = tf->Read(2ull);
+                last_read_item = tf->Substr(2ull);
                 assert(last_read_item == "13"s);
                 assert(last_read_item.size() == 2);
                 
-                last_read_item = tf->Read(3ull);
+                last_read_item = tf->Substr(3ull);
                 assert(last_read_item == "579"s);
                 assert(last_read_item.size() == 3);
             }
@@ -402,19 +402,19 @@ namespace testing {
             {
                 std::array<bool, 10> booleans = {true, true, false, false, true, true, false, false, true, false};
                 
-                tf->Write(&booleans, 0);
+                tf->PutInStream(&booleans, 0);
                 assert(tf->GetSize() == 10ull);
                 
                 std::array<int, 4> integers = {75,76,77,78};
-                tf->Write(&integers, 5ull);
+                tf->PutInStream(&integers, 5ull);
                 assert(tf->GetSize() == 13ull);
                 
                 std::array<std::string, 3> strings = {"josias"s, "cabrera"s, "altamirano"s};
-                tf->Write(&strings, tf->GetSize() - 1ull);
+                tf->PutInStream(&strings, tf->GetSize() - 1ull);
                 assert(tf->GetSize() == 35ull);
                 
                 std::string name = "Liliana"s;
-                tf->Write(&name, tf->GetSize());
+                tf->PutInStream(&name, tf->GetSize());
                 assert(tf->GetSize() == 42ull);
             }
         }
@@ -435,7 +435,7 @@ namespace testing {
                 
                 try {
                     std::string* empty = nullptr;
-                    tf->Write(empty);
+                    tf->PutInStream(empty);
                     assert(false);
                 } catch(std::invalid_argument&) {
                     assert(true);
@@ -453,7 +453,7 @@ namespace testing {
                 
                 try {
                     int num = 11;
-                    tf->Write(&num, 43ull);
+                    tf->PutInStream(&num, 43ull);
                     assert(false);
                 } catch(std::invalid_argument&) {
                     assert(true);
@@ -470,7 +470,7 @@ namespace testing {
                 }
                 
                 try {
-                    tf->Read(1ull, 42ull);
+                    tf->Substr(1ull, 42ull);
                     assert(false);
                 } catch(std::invalid_argument&) {
                     assert(true);
@@ -487,7 +487,7 @@ namespace testing {
                 }
                 
                 try {
-                    tf->Read(42ull, 1ull);
+                    tf->Substr(42ull, 1ull);
                     assert(false);
                 } catch(std::out_of_range&) {
                     assert(true);
@@ -510,4 +510,5 @@ namespace testing {
             Test6(&bfile, &tfile);
         }
     } //namespace file_handler_testing
-} //namespace testing*/
+} //namespace testing
+ */

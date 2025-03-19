@@ -2,15 +2,16 @@
 #define PLUGGIN_H
 #pragma once
 
-#include <filesystem>
-
-#include "file_handler.h"
 #include "request_handler.h"
 
-static cafeteria_app::request_handler::RequestHandler InitializeCatalogue() {
-    //Root Directory
-    const auto ROOT_DIRECTORY = std::filesystem::current_path();
-    const auto TEMP_DIRECTORY = file_handler::CreatePathObject("MyOutput", ROOT_DIRECTORY);
+
+
+cafeteria_app::request_handler::RequestHandler InitializeCatalogue(); 
+/*{
+    using namespace file_handler::literals;
+    //Set Enviroment Varaibles
+    const auto SETTINGS_DIRECTORY = "Settings"_p;
+
     //Subdirectories
     const auto RECORD_DIRECTORY = file_handler::CreatePathObject("Records", TEMP_DIRECTORY);
     const auto DATA_DIRECTORY = file_handler::CreatePathObject("Data", TEMP_DIRECTORY);
@@ -24,5 +25,6 @@ static cafeteria_app::request_handler::RequestHandler InitializeCatalogue() {
 
 
     return cafeteria_app::request_handler::RequestHandler{USER_DATA_PATHS};
-}
+}*/
+
 #endif // PLUGGIN_H

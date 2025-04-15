@@ -9,8 +9,10 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    core/api.cpp \
     core/backup_handler.cpp \
     core/domain.cpp \
+    core/external/excel_maker/api.cpp \
     core/external/excel_maker/src/IZipArchive.cpp \
     core/external/excel_maker/src/OpenXLSX-Exports.cpp \
     core/external/excel_maker/src/XLCell.cpp \
@@ -43,6 +45,7 @@ SOURCES += \
     core/external/excel_maker/src/XLXmlParser.cpp \
     core/external/excel_maker/src/XLZipArchive.cpp \
     core/external/excel_maker/src/pugixml.cpp \
+    core/external/qr_maker/api.cpp \
     core/external/qr_maker/src/qrcodegen.cpp \
     core/file_handler.cpp \
     core/request_handler.cpp \
@@ -55,9 +58,11 @@ SOURCES += \
     newuserform.cpp
 
 HEADERS += \
+    core/api.h \
     core/backup_handler.h \
+    core/document_templates.h \
     core/domain.h \
-    core/external/excel_maker/pluggin.hpp \
+    core/external/excel_maker/api.h \
     core/external/excel_maker/src/IZipArchive.hpp \
     core/external/excel_maker/src/OpenXLSX-Exports.hpp \
     core/external/excel_maker/src/OpenXLSX.hpp \
@@ -93,10 +98,10 @@ HEADERS += \
     core/external/excel_maker/src/pugiconfig.hpp \
     core/external/excel_maker/src/pugixml.hpp \
     core/external/excel_maker/src/zippy.hpp \
-    core/external/qr_maker/pluggin.hpp \
-    core/external/qr_maker/src/qrcodegen.hpp \
+    core/external/qr_maker/api.h \
+    core/external/qr_maker/src/qrcodegen.h \
     core/file_handler.h \
-    core/pluggin.h \
+    core/globals.h \
     core/record_catalogue.h \
     core/request_handler.h \
     core/tests.h \

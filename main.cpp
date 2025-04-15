@@ -1,4 +1,4 @@
-#include "core/pluggin.h"
+#include "core/api.cpp"
 #include "loginform.h"
 
 #include <QApplication>
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    auto handler = InitializeCatalogue();
+    auto handler = Start();
 
     LoginForm w(nullptr, &handler);
     w.show();

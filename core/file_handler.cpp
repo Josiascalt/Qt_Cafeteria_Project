@@ -10,6 +10,28 @@ namespace file_handler {
         }
     } //namespace literals
 
+    fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path) {
+        fs::path path = parent_path / fs::path(path_to_validate);
+        if (!fs::exists(path)) {
+            if (!path.has_extension()) {
+                fs::create_directory(path);
+                return path;
+            }
+            
+            static std::ofstream new_file;
+            new_file.open(path);
+
+            if (new_file) {
+                new_file.close();
+            }
+            else {
+                throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
+            }
+        }
+
+        return path;
+    }
+
     //class TextFile member functions definition
     TextFile::TextFile(const fs::path& path) 
     : File<char>(path)

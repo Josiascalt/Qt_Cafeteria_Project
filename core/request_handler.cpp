@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "request_handler.h"
-#include "external\qr_maker\pluggin.hpp"
+#include "external\qr_maker\api.cpp"
 
 namespace cafeteria_app {
     namespace request_handler {
@@ -31,8 +31,9 @@ namespace cafeteria_app {
         }
 
         void RequestHandler::GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier) {
-            std::cout << '\n' << qrcodegen::pluggin::GenerateSvgQrCode(identifier) << '\n';
+            std::cout << '\n' << qr_maker::GenerateSvgQrCode(identifier) << '\n';
         }
 
     } //namespace request_handler
 } //namespace cafeteria_app
+

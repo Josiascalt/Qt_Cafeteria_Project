@@ -26,27 +26,7 @@ namespace file_handler {
 
     using namespace literals;
 
-    static fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path = ""_p) {
-        fs::path path = parent_path / fs::path(path_to_validate);
-        if (!fs::exists(path)) {
-            if (!path.has_extension()) {
-                fs::create_directory(path);
-                return path;
-            }
-            
-            static std::ofstream new_file;
-            new_file.open(path);
-
-            if (new_file) {
-                new_file.close();
-            }
-            else {
-                throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
-            }
-        }
-
-        return path;
-    }
+    fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path = ""_p);
 
     //Overload fstream operator<< for accepting arrays
     template <typename Data, size_t Capacity>
@@ -103,6 +83,7 @@ namespace file_handler {
                 
                 SetWriteIndex(index);
                 GetFile().write(reinterpret_cast<char*>(source), ToByteSize(count));
+                GetFile().flush();
                 UpdateWriteIndexAndSize();
             }
 
@@ -119,6 +100,7 @@ namespace file_handler {
             
             SetWriteIndex(index);
             GetFile() << *source;
+            GetFile().flush();
             UpdateWriteIndexAndSize();
 
             return ToElementSize(write_index_);
@@ -289,7 +271,7 @@ namespace file_handler {
     public:
         BinaryFile(const fs::path& path):
 
-        File<T>(path, this -> Mode::BINARY)
+        File<T>(path, File<T>::Mode::BINARY)
         {
         
         }
@@ -297,6 +279,10 @@ namespace file_handler {
         template <typename CompatibleType>
         Index PutInStream(CompatibleType* source
                         , std::optional<Index> index = std::nullopt) = delete;
+
+        template <typename CompatibleType>
+        Index GetFromStream(CompatibleType* target
+                          , std::optional<Index> index = std::nullopt) = delete;
 
     };
 

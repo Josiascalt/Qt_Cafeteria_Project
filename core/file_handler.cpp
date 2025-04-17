@@ -9,9 +9,26 @@ namespace file_handler {
             return std::filesystem::path(pathname, pathname + size);
         }
     } //namespace literals
+    namespace detail {
+        fs::path StandardizePath(std::string path) {
+            for (size_t i = 0; i < path.size(); ++i) {
+                char c = path[i];
+            #if defined(_WIN32)
+                    if (c == '/') {
+                        path[i] = '\\';
+                    }
+            #else
+                    if (c == '\\') {
+                        path[i] == '/';
+                    }
+            #endif
+            }
 
-    fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path) {
-        fs::path path = parent_path / fs::path(path_to_validate);
+            return fs::path{std::move(path)};
+        }
+    }//namespace detail
+    
+    fs::path CreatePathObject(fs::path path) {
         if (!fs::exists(path)) {
             if (!path.has_extension()) {
                 fs::create_directory(path);
@@ -31,6 +48,13 @@ namespace file_handler {
 
         return path;
     }
+    fs::path CreatePathObject(const char* path_obj) {
+        auto path = detail::StandardizePath(std::move(path_obj));
+        return CreatePathObject(std::move(path));
+    }
+
+    
+
 
     //class TextFile member functions definition
     TextFile::TextFile(const fs::path& path) 

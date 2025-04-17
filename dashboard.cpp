@@ -1,10 +1,10 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
 
-Dashboard::Dashboard(QWidget *parent, cafeteria_app::request_handler::RequestHandler *handler, QMainWindow *login_form)
+Dashboard::Dashboard(QWidget *parent/*, cafeteria_app::request_handler::RequestHandler *handler*/, QMainWindow *login_form)
     : QWidget(parent)
     , ui(new Ui::Dashboard)
-    , handler_(handler)
+    //, handler_(handler)
     , login_form_(login_form)
     , new_user_form_(nullptr)
 
@@ -21,7 +21,7 @@ Dashboard::Dashboard(QWidget *parent, cafeteria_app::request_handler::RequestHan
     ui->database_viewer_->setItem(0,0, new QTableWidgetItem(QString("Name")));
     ui->database_viewer_->setItem(0,1, new QTableWidgetItem(QString("Gender")));
     ui->database_viewer_->setItem(0,2, new QTableWidgetItem(QString("Group")));
-    if (handler_) {
+    /*if (handler_) {
         for (const auto& user : handler_->GetUsers()) {
             ui->database_viewer_->insertRow(1);
             if (auto student = dynamic_cast<const cafeteria_app::domain::compound_types::Student*>(user.get())) {
@@ -30,7 +30,7 @@ Dashboard::Dashboard(QWidget *parent, cafeteria_app::request_handler::RequestHan
                 ui->database_viewer_->setItem(1,2, new QTableWidgetItem(student->GetGroup().IsTAC() ? "TAC" : "TAIS"));
             }
         }
-    }
+    }*/
 
 }
 
@@ -68,7 +68,7 @@ void Dashboard::on_database_tab_button__clicked()
 void Dashboard::on_add_user_button__clicked()
 {
     if (!new_user_form_) {
-        new_user_form_ = new NewUserForm(nullptr, handler_);
+        new_user_form_ = new NewUserForm(nullptr/*, handler_*/);
     }
 
     new_user_form_->show();

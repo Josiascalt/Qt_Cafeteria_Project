@@ -12,8 +12,8 @@
 namespace cafeteria_app {
     namespace database {
 
-        using namespace domain::standardized_types;
-        using namespace domain::components;
+        using namespace domain::types;
+        using namespace domain::interfaces;
 
         class UserCatalogue {
         public:
@@ -24,7 +24,7 @@ namespace cafeteria_app {
 
             //bool HasUser(const UserPtr& user) const;
             RawIdentifier AddUser(UserPtr&& user);
-            const UserPtr& GetUserByIdentifier(types::Identifier identifier) const;
+            const UserPtr& GetUserByIdentifier(props::Identifier identifier) const;
             const std::deque<UserPtr>& GetUsers() const;
 
         private:
@@ -32,7 +32,7 @@ namespace cafeteria_app {
 
         private:
             std::deque<UserPtr> users_;
-            std::unordered_map<types::Identifier, Index> identifier_to_user_;
+            std::unordered_map<props::Identifier, Index> identifier_to_user_;
         };
     } //namespace database
 } //namespace cafeteria_app

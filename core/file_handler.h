@@ -25,9 +25,10 @@ namespace file_handler {
     } //namespace literals
 
     using namespace literals;
-
-    fs::path CreatePathObject(const char* path_to_validate, const fs::path& parent_path = ""_p);
-
+    
+    fs::path CreatePathObject(fs::path path);
+    fs::path CreatePathObject(const char* path_obj);
+    
     //Overload fstream operator<< for accepting arrays
     template <typename Data, size_t Capacity>
     std::fstream& operator<<(std::fstream& out, std::array<Data, Capacity> data) {

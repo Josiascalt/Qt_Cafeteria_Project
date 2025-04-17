@@ -9,14 +9,14 @@
 namespace cafeteria_app {
     namespace request_handler {
 
-        using namespace domain::standardized_types;
+        using namespace domain::types;
 
         class RequestHandler {
         public:
             RequestHandler(const backup::UserDataPaths& paths);
 
             bool AddUser(UserPtr&& user);
-            const UserPtr& GetUserByIdentifier(domain::components::types::Identifier identifier);
+            const UserPtr& GetUserByIdentifier(domain::interfaces::props::Identifier identifier);
             const std::deque<UserPtr>& GetUsers() const;
 
         private:

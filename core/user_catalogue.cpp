@@ -6,8 +6,8 @@
 
 namespace cafeteria_app {
 namespace database {
-    using namespace domain::standardized_types;
-    using namespace domain::components;
+    using namespace domain::types;
+    using namespace domain::interfaces;
 
         //UserCatalogue class member functions definition
         UserCatalogue::UserCatalogue() = default;
@@ -19,7 +19,7 @@ namespace database {
         }
 
         /*bool UserCatalogue::HasUser(const UserPtr& user) const {
-            using namespace domain::components;
+            using namespace domain::interfaces;
             if (user) {
                 if (auto identifier = dynamic_cast<const Identifiable*>(user.get());
                     identifier && identifier_to_user_.count(identifier->GetIdentifier())) {
@@ -45,7 +45,7 @@ namespace database {
             return RawIdentifier{}; 
         }
 
-        const UserPtr& UserCatalogue::GetUserByIdentifier(types::Identifier identifier) const {
+        const UserPtr& UserCatalogue::GetUserByIdentifier(props::Identifier identifier) const {
             static const UserPtr dummy_user;
             auto result = identifier_to_user_.find(identifier);
             return result == identifier_to_user_.end() ? dummy_user : users_[result->second];

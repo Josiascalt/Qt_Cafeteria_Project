@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    auto handler = Start();
+    Start();
 
-    LoginForm w(nullptr, &handler);
+    LoginForm w(nullptr/*, &handler*/);
     w.show();
     return a.exec();
 }

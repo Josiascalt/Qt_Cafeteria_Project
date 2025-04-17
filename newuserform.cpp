@@ -1,10 +1,10 @@
 #include "newuserform.h"
 #include "ui_newuserform.h"
 
-NewUserForm::NewUserForm(QWidget *parent, cafeteria_app::request_handler::RequestHandler *handler)
+NewUserForm::NewUserForm(QWidget *parent/*, cafeteria_app::request_handler::RequestHandler *handler*/)
     : QWidget(parent)
     , ui(new Ui::NewUserForm)
-    , handler_(handler)
+    //, handler_(handler)
 {
     this->setWindowModality(Qt::WindowModality::ApplicationModal);
     this->setWindowFlags(Qt::WindowCloseButtonHint);
@@ -21,7 +21,7 @@ void NewUserForm::on_save_button__clicked()
 {
     using namespace std::literals;
 
-    cafeteria_app::domain::standardized_types::UserPtr user(new cafeteria_app::domain::compound_types::Student);
+    /*cafeteria_app::domain::standardized_types::UserPtr user(new cafeteria_app::domain::compound_types::Student);
     if (auto student = dynamic_cast<cafeteria_app::domain::compound_types::Student*>(user.get())) {
 
         student->SetName(ui->name_->text().toStdString() + " "s + ui->surname_->text().toStdString());
@@ -53,7 +53,7 @@ void NewUserForm::on_save_button__clicked()
             student->SetGroup(cafeteria_app::domain::components::types::Group(cafeteria_app::domain::components::types::Group::TAIS::TWELFTH_GRADE));
         }
         handler_->AddUser(std::move(user));
-    }
+    }*/
 
 
     this->close();

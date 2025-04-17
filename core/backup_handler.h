@@ -8,9 +8,8 @@
 
 namespace cafeteria_app {
     namespace backup {
-
-        using namespace domain::standardized_types;
-
+        using namespace domain;
+        
         namespace exceptions {
         struct InvalidPtr {};
         }
@@ -45,19 +44,19 @@ namespace cafeteria_app {
                 //metadata
                 SerializeMetadata(user);
                 //data
-                if (auto identifier = dynamic_cast<domain::components::Identifiable*>(user)) {
+                if (auto identifier = dynamic_cast<domain::interfaces::Identifiable*>(user)) {
                     identifiers_.Write(&identifier->value);
                 }
 
-                if (auto name = dynamic_cast<domain::components::Nameable*>(user)) {
+                if (auto name = dynamic_cast<domain::interfaces::Nameable*>(user)) {
                     names_.Write(&name->value);
                 }
 
-                if (auto gender = dynamic_cast<domain::components::Genderable*>(user)) {
+                if (auto gender = dynamic_cast<domain::interfaces::Genderable*>(user)) {
                     genders_.Write(&gender->value);
                 }
 
-                if (auto group = dynamic_cast<domain::components::Groupable*>(user)) {
+                if (auto group = dynamic_cast<domain::interfaces::Groupable*>(user)) {
                     groups_.Write(&group->value);
                 }
             }
@@ -67,7 +66,7 @@ namespace cafeteria_app {
         private:
             template <typename T>
             inline void SerializeMetadata(T* user) {
-                domain::compound_types::UserType user_type = user->GetUserType();
+                domain::users::Users user_type = user->GetUserType();
                 user_types_.Write(&user_type);
             }
 
@@ -75,17 +74,17 @@ namespace cafeteria_app {
 
         private:
             //Metadata
-            file_handler::BinaryFile<domain::compound_types::UserType> user_types_;
+            file_handler::BinaryFile<domain::Users> user_types_;
             //Data
-            file_handler::BinaryFile<domain::components::Nameable::Type> names_;
-            file_handler::BinaryFile<domain::components::Identifiable::Type> identifiers_;
-            file_handler::BinaryFile<domain::components::Genderable::Type> genders_;
-            file_handler::BinaryFile<domain::components::Groupable::Type> groups_;
+            file_handler::BinaryFile<domain::props::interfaces::Nameable::Type> names_;
+            file_handler::BinaryFile<domain::props::interfaces::Identifiable::Type> identifiers_;
+            file_handler::BinaryFile<domain::props::interfaces::Genderable::Type> genders_;
+            file_handler::BinaryFile<domain::props::interfaces::Groupable::Type> groups_;
         };
 
         /*class RecordDataBackup {
         public:
-            void Serialize(domain::components::Identifiable* identifiable, TimePoint timepoint) {
+            void Serialize(domain::props_interfaces::Identifiable* identifiable, TimePoint timepoint) {
                 if (!identifiable) {
                     throw exceptions::InvalidPtr{};
                     
@@ -115,7 +114,7 @@ namespace cafeteria_app {
             //Metadata
             file_handler::BinaryFile<Session> sessions_;
             //Data
-            file_handler::BinaryFile<domain::components::Identifiable::Type> identifiers_;
+            file_handler::BinaryFile<domain::props_interfaces::Identifiable::Type> identifiers_;
             file_handler::BinaryFile<TimePoint> timepoints_;
         };*/
     } //namespace backup

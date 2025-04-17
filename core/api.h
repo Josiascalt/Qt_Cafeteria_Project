@@ -5,6 +5,6 @@
 
 #include "request_handler.h"
 
-cafeteria_app::request_handler::RequestHandler Start();
+/*cafeteria_app::request_handler::RequestHandler*/void Start();
 
 #endif //API_H

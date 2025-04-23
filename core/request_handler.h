@@ -16,7 +16,7 @@ namespace cafeteria_app {
             RequestHandler(const backup::UserDataPaths& paths);
 
             bool AddUser(UserPtr&& user);
-            const UserPtr& GetUserByIdentifier(domain::interfaces::core_types::Identifier identifier);
+            const UserPtr& GetUserByIdentifier(domain::interfaces::interfaces::Identifier identifier);
             const std::deque<UserPtr>& GetUsers() const;
 
         private:

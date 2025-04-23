@@ -11,17 +11,18 @@
 
 namespace cafeteria_app {
     namespace domain {
-        
-        class Printable {
-        public:
-            virtual Label PrintLabel() const = 0;
-            virtual Text PrintValue() const = 0;
-        protected:
-            virtual ~Printable() = default;
-        };
 
-        namespace core_types {
+        namespace interfaces {
+            //Base class
+            class Printable {
+            public:
+                virtual Label PrintLabel() const = 0;
+                virtual std::string PrintValue() const = 0;
+            protected:
+                virtual ~Printable() = default;
+            };
 
+            //Base class for all core types
             template <typename T>
             class CoreType : public Printable {
             public:
@@ -45,6 +46,7 @@ namespace cafeteria_app {
                 Type value_;
             };
 
+
             //Raw Datatype
             using Name = std::array<encoder::ascii::Item, 10>;
             //Class interface
@@ -54,7 +56,7 @@ namespace cafeteria_app {
             
             public:
                 Label PrintLabel() const override;
-                Text PrintValue() const override;
+                std::string PrintValue() const override;
             };
 
             //Raw Datatype
@@ -63,7 +65,7 @@ namespace cafeteria_app {
             class Identifiable : public CoreType<Identifier> {
             public:
                 Label PrintLabel() const override;
-                Text PrintValue() const override;
+                std::string PrintValue() const override;
             };
             
             //Raw Datatype
@@ -75,7 +77,7 @@ namespace cafeteria_app {
             class Genderable : public CoreType<Gender> {
             public:
                 Label PrintLabel() const override;
-                Text PrintValue() const override;
+                std::string PrintValue() const override;
             };
 
             //Raw Datatype
@@ -117,17 +119,17 @@ namespace cafeteria_app {
 
                 struct WrappedTAA : Wrapper<TAA>, Printable {
                     Label PrintLabel() const override;
-                    Text PrintValue() const override;
+                    std::string PrintValue() const override;
                 };
 
                 struct WrappedTAC : Wrapper<TAC>, Printable {
                     Label PrintLabel() const override;
-                    Text PrintValue() const override;
+                    std::string PrintValue() const override;
                 };
 
                 struct WrappedTAIS : Wrapper<TAIS>, Printable {
                     Label PrintLabel() const override;
-                    Text PrintValue() const override;
+                    std::string PrintValue() const override;
                 };
             
             private:
@@ -174,17 +176,16 @@ namespace cafeteria_app {
             class Groupable : public CoreType<Group> {
             public:
                 Label PrintLabel() const override;
-                Text PrintValue() const override;
+                std::string PrintValue() const override;
             };
-        } //namespace core_types
-
+        } //namespace interfaces
 
         enum class Users : char {
             STUDENT
         };
 
         namespace users {
-            using namespace core_types;
+            using namespace interfaces;
 
             //class Interface
             class User {

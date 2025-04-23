@@ -5,7 +5,7 @@
 
 namespace cafeteria_app {
     namespace domain {
-        namespace core_types {
+        namespace interfaces {
         //class Namable member functions definition
             Name Nameable::StringToName(const std::string& str) {
                 Name name;
@@ -17,7 +17,7 @@ namespace cafeteria_app {
                 return text_vars::NAME_LABEL;
             }
 
-            Text Nameable::PrintValue() const {
+            std::string Nameable::PrintValue() const {
                 return encoder::ascii::DecodeDataFromIterable(this -> GetValue().begin(), this -> GetValue().end());
             }
             
@@ -26,7 +26,7 @@ namespace cafeteria_app {
                 return text_vars::IDENTIFIER_LABEL;
             }
 
-            Text Identifiable::PrintValue() const {
+            std::string Identifiable::PrintValue() const {
                 return std::to_string(this -> GetValue());
             }
 
@@ -35,7 +35,7 @@ namespace cafeteria_app {
                 return text_vars::GENDER_LABEL;
             }
 
-            Text Genderable::PrintValue() const {
+            std::string Genderable::PrintValue() const {
                 return GetValue() == Gender::MALE ? text_vars::MALE_GENDER_LABEL : text_vars::FEMALE_GENDER_LABEL;
             }
 
@@ -44,7 +44,7 @@ namespace cafeteria_app {
                 return text_vars::TAA_GROUP_LABEL;
             }
 
-            Text Group::WrappedTAA::PrintValue() const {
+            std::string Group::WrappedTAA::PrintValue() const {
                 switch (this -> value) {
                     case TAA::FIRST_GRADE:
                         return text_vars::TAA_SUBGROUP1_LABEL;
@@ -62,7 +62,7 @@ namespace cafeteria_app {
                 return text_vars::TAC_GROUP_LABEL;
             }
 
-            Text Group::WrappedTAC::PrintValue() const {
+            std::string Group::WrappedTAC::PrintValue() const {
                 switch (this -> value) {
                     case TAC::BILINGUAL_BUSINESS_DEPARTMENT:
                         return text_vars::TAC_SUBGROUP1_LABEL;
@@ -82,7 +82,7 @@ namespace cafeteria_app {
                 return text_vars::TAIS_GROUP_LABEL;
             }
 
-            Text Group::WrappedTAIS::PrintValue() const {
+            std::string Group::WrappedTAIS::PrintValue() const {
                 switch (this -> value) {
                     case TAIS::SEVENTH_GRADE:
                         return text_vars::TAIS_SUBGROUP1_LABEL;
@@ -151,12 +151,12 @@ namespace cafeteria_app {
                 return text_vars::GROUP_LABEL;
             }
 
-            Text Groupable::PrintValue() const {
+            std::string Groupable::PrintValue() const {
                 return this -> GetValue().IsTAA() 
                 ? text_vars::TAA_GROUP_LABEL 
                 : (this -> GetValue().IsTAC() ? text_vars::TAC_GROUP_LABEL : text_vars::TAIS_GROUP_LABEL);
             }
-        } //namespace props
+        } //namespace interfaces
     } // namespace domain
 } // namespace cafeteria_app
 

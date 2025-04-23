@@ -76,10 +76,10 @@ namespace cafeteria_app {
             //Metadata
             file_handler::BinaryFile<domain::Users> user_types_;
             //Data
-            file_handler::BinaryFile<domain::core_types::interfaces::Nameable::Type> names_;
-            file_handler::BinaryFile<domain::core_types::interfaces::Identifiable::Type> identifiers_;
-            file_handler::BinaryFile<domain::core_types::interfaces::Genderable::Type> genders_;
-            file_handler::BinaryFile<domain::core_types::interfaces::Groupable::Type> groups_;
+            file_handler::BinaryFile<domain::interfaces::interfaces::Nameable::Type> names_;
+            file_handler::BinaryFile<domain::interfaces::interfaces::Identifiable::Type> identifiers_;
+            file_handler::BinaryFile<domain::interfaces::interfaces::Genderable::Type> genders_;
+            file_handler::BinaryFile<domain::interfaces::interfaces::Groupable::Type> groups_;
         };
 
         /*class RecordDataBackup {

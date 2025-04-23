@@ -16,8 +16,8 @@ class Item {
 public:
     using Type = uint64_t;
 
-    static const int CAPACITY = 9;
-    static const int RELATIVE_POSITION = 31;
+    static constexpr int CAPACITY = 9;
+    static constexpr int RELATIVE_POSITION = 31;
 
     Item() = default;
 

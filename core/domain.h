@@ -1,4 +1,3 @@
-//hi
 #pragma once
 
 #include <string>
@@ -8,7 +7,7 @@
 #include <chrono>
 
 #include "text_vars.h"
-#include "utilities/encoder.h"
+#include "utilities\encoder.h"
 
 namespace cafeteria_app {
     namespace domain {
@@ -24,24 +23,35 @@ namespace cafeteria_app {
         namespace core_types {
 
             template <typename T>
-            class CoreType : virtual public Printable {
+            class CoreType : public Printable {
             public:
                 typedef T Type;
+
+                virtual void SetValue(Type value) {
+                    value_ = std::move(value);
+                }
+
+                virtual const Type& GetValue() const {
+                    return value_;
+                }
                 
-                virtual Type* GetData() {
-                    return &data_;
+                virtual Type* GetRawPtr() {
+                    return &value_;
                 }
 
             protected:
                 virtual ~CoreType() = default;
             protected:
-                Type data_;
+                Type value_;
             };
 
             //Raw Datatype
             using Name = std::array<encoder::ascii::Item, 10>;
             //Class interface
-            class Namable : public CoreType<Name> {
+            class Nameable : public CoreType<Name> {
+            public:
+                static Name StringToName(const std::string& str);
+            
             public:
                 Label PrintLabel() const override;
                 Text PrintValue() const override;
@@ -166,67 +176,6 @@ namespace cafeteria_app {
                 Label PrintLabel() const override;
                 Text PrintValue() const override;
             };
-
-            namespace interfaces {
-                
-                //class interface
-                template <typename T>
-                struct Component {
-                    typedef T Type;
-                    T value;
-                protected:
-                    virtual ~Component() = default;
-                };
-
-                struct Nameable : Component<core_types::Name> {
-                    void SetName(const std::string& name) {
-                        encoder::ascii::EncodeDataInIterable(name.begin(), name.end(), value.begin(), value.size());
-                    }
-
-                    std::string GetName() const {
-                        return encoder::ascii::DecodeDataFromIterable(value.begin(), value.end());
-                    }
-
-                    virtual ~Nameable() = default;
-                };
-
-                struct Identifiable : Component<core_types::Identifier> {
-                    void SetIdentifier(const std::string& identifier) {
-                        const static std::hash<std::string> hasher;
-                        this -> value = hasher(identifier);
-                    }
-
-                    Type GetIdentifier() const {
-                        return value;
-                    }
-
-                    virtual ~Identifiable() = default;
-                };
-
-                struct Genderable : Component<core_types::Gender> {
-                    void SetGender(Type gender) {
-                        this -> value = gender;
-                    }
-
-                    Type GetGender() const {
-                        return value;
-                    }
-
-                    virtual ~Genderable() = default;
-                };
-
-                struct Groupable : Component<core_types::Group> {
-                    void SetGroup(Type group) {
-                        this -> value = group;
-                    }
-
-                    Type GetGroup() const {
-                        return value;
-                    }
-
-                    virtual ~Groupable() = default;
-                };
-            } //namespace interfaces
         } //namespace core_types
 
 
@@ -235,7 +184,7 @@ namespace cafeteria_app {
         };
 
         namespace users {
-            using namespace core_types::interfaces;
+            using namespace core_types;
 
             //class Interface
             class User {

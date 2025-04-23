@@ -22,7 +22,7 @@ namespace cafeteria_app {
             return true;
         }
 
-        const UserPtr& RequestHandler::GetUserByIdentifier(domain::interfaces::props::Identifier identifier) {
+        const UserPtr& RequestHandler::GetUserByIdentifier(domain::interfaces::core_types::Identifier identifier) {
             return catalogue_.GetUserByIdentifier(identifier);
         }
 

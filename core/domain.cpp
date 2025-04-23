@@ -4,7 +4,7 @@
 
 namespace cafeteria_app {
     namespace domain {
-        namespace props {
+        namespace core_types {
         //class Group member functions definition
             bool Group::IsTAC() const {
                 return std::holds_alternative<TAC>(group_);

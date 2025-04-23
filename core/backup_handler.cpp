@@ -51,19 +51,19 @@ namespace cafeteria_app {
                 auto user = DeserializeMetadata();
                 if (user) {
 
-                    if (auto identifier = dynamic_cast<domain::props::interfaces::Identifiable*>(user.get())) {
+                    if (auto identifier = dynamic_cast<domain::core_types::interfaces::Identifiable*>(user.get())) {
                         identifiers_.Read(&identifier->value);
                     }
 
-                    if (auto name = dynamic_cast<domain::props::interfaces::Nameable*>(user.get())) {
+                    if (auto name = dynamic_cast<domain::core_types::interfaces::Nameable*>(user.get())) {
                         names_.Read(&name->value);
                     }
 
-                    if (auto gender = dynamic_cast<domain::props::interfaces::Genderable*>(user.get())) {
+                    if (auto gender = dynamic_cast<domain::core_types::interfaces::Genderable*>(user.get())) {
                         genders_.Read(&gender->value);
                     }
 
-                    if (auto group = dynamic_cast<domain::props::interfaces::Groupable*>(user.get())) {
+                    if (auto group = dynamic_cast<domain::core_types::interfaces::Groupable*>(user.get())) {
                         groups_.Read(&group->value);
                     }
 

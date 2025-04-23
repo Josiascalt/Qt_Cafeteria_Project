@@ -45,7 +45,7 @@ namespace database {
             return RawIdentifier{}; 
         }
 
-        const UserPtr& UserCatalogue::GetUserByIdentifier(props::Identifier identifier) const {
+        const UserPtr& UserCatalogue::GetUserByIdentifier(core_types::Identifier identifier) const {
             static const UserPtr dummy_user;
             auto result = identifier_to_user_.find(identifier);
             return result == identifier_to_user_.end() ? dummy_user : users_[result->second];

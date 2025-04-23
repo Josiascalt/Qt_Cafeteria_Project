@@ -6,40 +6,80 @@
 #include <variant>
 #include <chrono>
 
+#include "text_vars.h"
 #include "utilities/encoder.h"
 
 namespace cafeteria_app {
     namespace domain {
-
-        enum class Props : int_fast16_t {
-            NAME,
-            INDENTIFIER,
-            GENDER,
-            GROUP    
+        
+        class Printable {
+        public:
+            virtual Label PrintLabel() const = 0;
+            virtual Text PrintValue() const = 0;
+        protected:
+            virtual ~Printable() = default;
         };
 
-        namespace props {
-            
+        namespace core_types {
+
+            template <typename T>
+            class CoreType : virtual public Printable {
+            public:
+                typedef T Type;
+                
+                virtual Type* GetData() {
+                    return &data_;
+                }
+
+            protected:
+                virtual ~CoreType() = default;
+            protected:
+                Type data_;
+            };
+
+            //Raw Datatype
             using Name = std::array<encoder::ascii::Item, 10>;
+            //Class interface
+            class Namable : public CoreType<Name> {
+            public:
+                Label PrintLabel() const override;
+                Text PrintValue() const override;
+            };
 
+            //Raw Datatype
             using Identifier = size_t;
-
+            //Class interface
+            class Identifiable : public CoreType<Identifier> {
+            public:
+                Label PrintLabel() const override;
+                Text PrintValue() const override;
+            };
+            
+            //Raw Datatype
             enum class Gender : bool {
                 MALE,
                 FEMALE
             };
-
-            class Group {
+            //Class interface
+            class Genderable : public CoreType<Gender> {
             public:
+                Label PrintLabel() const override;
+                Text PrintValue() const override;
+            };
+
+            //Raw Datatype
+            class Group {
+            public: 
+                //Subgroups
                 enum class TAA : char {
-                    MONOSTATE,
+                    DEFAULT,
                     FIRST_GRADE,
                     SECOND_GRADE,
                     THIRD_GRADE
                 };
 
                 enum class TAC : char {
-                    MONOSTATE,
+                    DEFAULT,
                     BILINGUAL_BUSINESS_DEPARTMENT,
                     HEALTH_EDUCATION_DEPARTMENT,
                     MUSIC_DEPARTMENT,
@@ -47,7 +87,7 @@ namespace cafeteria_app {
                 };
 
                 enum class TAIS : char {
-                    MONOSTATE,
+                    DEFAULT,
                     SEVENTH_GRADE,
                     EIGHTH_GRADE,
                     NINTH_GRADE,
@@ -56,32 +96,74 @@ namespace cafeteria_app {
                     TWELFTH_GRADE
                 };
 
+                //Wrapped Subgroups
+                template <typename Subgroup>
+                struct Wrapper {
+                    Subgroup value;
+                protected:
+                    virtual ~Wrapper() = default;
+                };
+
+                struct WrappedTAA : Wrapper<TAA>, Printable {
+                    Label PrintLabel() const override;
+                    Text PrintValue() const override;
+                };
+
+                struct WrappedTAC : Wrapper<TAC>, Printable {
+                    Label PrintLabel() const override;
+                    Text PrintValue() const override;
+                };
+
+                struct WrappedTAIS : Wrapper<TAIS>, Printable {
+                    Label PrintLabel() const override;
+                    Text PrintValue() const override;
+                };
+            
+            private:
+                using RawType = std::variant<Group::TAC, Group::TAIS, Group::TAA>;
+            public:
                 Group() = default;
 
-                template <class GroupName>
-                Group(GroupName group)
+                template <typename Subgroup>
+                Group(Subgroup group)
                     : group_(group)
                 {
                 }
 
-                template <class GroupName>
-                Group& operator=(GroupName group) {
+                template <typename Subgroup>
+                Group& operator=(Subgroup group) {
                     group_ = group;
                     return *this;
                 }
 
+                bool IsTAA() const;
                 bool IsTAC() const;
                 bool IsTAIS() const;
-                bool IsTAA() const;
-                TAC GetAsTAC() const;
-                TAIS GetAsTAIS() const;
-                TAA GetAsTAA() const;
-
+                
+                WrappedTAA GetAsTAA() const;
+                WrappedTAC GetAsTAC() const;
+                WrappedTAIS GetAsTAIS() const;
+            
+            public:
                 bool operator==(const Group& other) const;
                 bool operator!=(const Group& other) const;
 
+                struct Hasher {
+                    size_t operator()(const Group& group) const {
+                        return static_cast<size_t>(std::hash<RawType>{}(group.group_));
+                    }
+                };
+
             private:
-                std::variant<TAC, TAIS, TAA> group_;
+                friend struct Group::Hasher;
+            private:
+                RawType group_;
+            };
+            //Class interface
+            class Groupable : public CoreType<Group> {
+            public:
+                Label PrintLabel() const override;
+                Text PrintValue() const override;
             };
 
             namespace interfaces {
@@ -95,7 +177,7 @@ namespace cafeteria_app {
                     virtual ~Component() = default;
                 };
 
-                struct Nameable : Component<props::Name> {
+                struct Nameable : Component<core_types::Name> {
                     void SetName(const std::string& name) {
                         encoder::ascii::EncodeDataInIterable(name.begin(), name.end(), value.begin(), value.size());
                     }
@@ -107,7 +189,7 @@ namespace cafeteria_app {
                     virtual ~Nameable() = default;
                 };
 
-                struct Identifiable : Component<props::Identifier> {
+                struct Identifiable : Component<core_types::Identifier> {
                     void SetIdentifier(const std::string& identifier) {
                         const static std::hash<std::string> hasher;
                         this -> value = hasher(identifier);
@@ -120,7 +202,7 @@ namespace cafeteria_app {
                     virtual ~Identifiable() = default;
                 };
 
-                struct Genderable : Component<props::Gender> {
+                struct Genderable : Component<core_types::Gender> {
                     void SetGender(Type gender) {
                         this -> value = gender;
                     }
@@ -132,7 +214,7 @@ namespace cafeteria_app {
                     virtual ~Genderable() = default;
                 };
 
-                struct Groupable : Component<props::Group> {
+                struct Groupable : Component<core_types::Group> {
                     void SetGroup(Type group) {
                         this -> value = group;
                     }
@@ -144,7 +226,7 @@ namespace cafeteria_app {
                     virtual ~Groupable() = default;
                 };
             } //namespace interfaces
-        } //namespace props
+        } //namespace core_types
 
 
         enum class Users : char {
@@ -152,7 +234,7 @@ namespace cafeteria_app {
         };
 
         namespace users {
-            using namespace props::interfaces;
+            using namespace core_types::interfaces;
 
             //class Interface
             class User {

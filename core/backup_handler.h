@@ -3,83 +3,59 @@
 #pragma once
 
 #include <deque>
+#include <exception>
+
 #include "domain.h"
+#include "type_aliases.h"
 #include "file_handler.h"
+#include "utilities\json\json.h"
 
 namespace cafeteria_app {
     namespace backup {
-        using namespace domain;
+        using namespace cafeteria_app::type_aliases;
         
         namespace exceptions {
-        struct InvalidPtr {};
+            struct InvalidPtr {};
         }
-
-        struct UserDataPaths {
-            struct Metadata {
-                fs::path queue;
-            };
-
-            Metadata metadata;
-            fs::path names;
-            fs::path identifiers;
-            fs::path genders;
-            fs::path groups;
-
-            UserDataPaths& SetMetadataPaths(fs::path queue_path);
-            UserDataPaths& SetNamesPath(fs::path names_path);
-            UserDataPaths& SetIdentifiersPath(fs::path identifiers_path);
-            UserDataPaths& SetGendersPath(fs::path genders_path);
-            UserDataPaths& SetGroupsPath(fs::path groups_path);
-        };
 
         class UserDataBackup {
         public:
-            UserDataBackup(const UserDataPaths& user_data);
+            UserDataBackup(const json::Dict& path_settings);
 
-            template <typename T>
-            inline void Serialize(T* user) {
+            template <typename UserBased>
+            void Serialize(UserBased* user) {
                 if (!user) {
-                    throw exceptions::InvalidPtr{};
+                    throw std::invalid_argument("Invalid user pointer.");
                 }
                 //metadata
                 SerializeMetadata(user);
+
                 //data
-                if (auto identifier = dynamic_cast<domain::interfaces::Identifiable*>(user)) {
-                    identifiers_.Write(&identifier->value);
-                }
+                domain::interfaces::IterateAcrossInterfaces(user, [&](auto* interface) {
+                    auto path = file_handler::CreatePathObject((interface->PrintLabel() + ".dat"s));
+                    file_handler::BinaryFile<decltype(interface->value)> f(path);
+                    f.Write(&interface->value);
+                });
 
-                if (auto name = dynamic_cast<domain::interfaces::Nameable*>(user)) {
-                    names_.Write(&name->value);
-                }
-
-                if (auto gender = dynamic_cast<domain::interfaces::Genderable*>(user)) {
-                    genders_.Write(&gender->value);
-                }
-
-                if (auto group = dynamic_cast<domain::interfaces::Groupable*>(user)) {
-                    groups_.Write(&group->value);
-                }
             }
 
-            std::deque<UserPtr> Deserialize();
+            //std::deque<UserPtr> Deserialize();
 
         private:
-            template <typename T>
-            inline void SerializeMetadata(T* user) {
+            template <typename UserBased>
+            inline void SerializeMetadata(UserBased* user) {
                 domain::users::Users user_type = user->GetUserType();
-                user_types_.Write(&user_type);
+
+                types_.Write(&user_type);
             }
 
-            UserPtr DeserializeMetadata();
+            //UserPtr DeserializeMetadata();
 
         private:
+            const json::Dict& paths_settings_;
+
             //Metadata
-            file_handler::BinaryFile<domain::Users> user_types_;
-            //Data
-            file_handler::BinaryFile<domain::interfaces::interfaces::Nameable::Type> names_;
-            file_handler::BinaryFile<domain::interfaces::interfaces::Identifiable::Type> identifiers_;
-            file_handler::BinaryFile<domain::interfaces::interfaces::Genderable::Type> genders_;
-            file_handler::BinaryFile<domain::interfaces::interfaces::Groupable::Type> groups_;
+            file_handler::BinaryFile<domain::users::Users> types_;
         };
 
         /*class RecordDataBackup {

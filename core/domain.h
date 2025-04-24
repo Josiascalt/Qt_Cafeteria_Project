@@ -4,9 +4,8 @@
 #include <array>
 #include <memory>
 #include <variant>
-#include <chrono>
 
-#include "text_vars.h"
+#include "labels.h"
 #include "utilities\encoder.h"
 
 namespace cafeteria_app {
@@ -14,8 +13,7 @@ namespace cafeteria_app {
 
         namespace interfaces {
             //Base class
-            class Printable {
-            public:
+            struct Printable {
                 virtual Label PrintLabel() const = 0;
                 virtual std::string PrintValue() const = 0;
             protected:
@@ -24,46 +22,28 @@ namespace cafeteria_app {
 
             //Base class for all core types
             template <typename T>
-            class CoreType : public Printable {
-            public:
+            struct CoreType : Printable {
                 typedef T Type;
 
-                virtual void SetValue(Type value) {
-                    value_ = std::move(value);
-                }
-
-                virtual const Type& GetValue() const {
-                    return value_;
-                }
-                
-                virtual Type* GetRawPtr() {
-                    return &value_;
-                }
-
+                Type value;
             protected:
                 virtual ~CoreType() = default;
-            protected:
-                Type value_;
             };
 
-
             //Raw Datatype
-            using Name = std::array<encoder::ascii::Item, 10>;
-            //Class interface
-            class Nameable : public CoreType<Name> {
-            public:
-                static Name StringToName(const std::string& str);
-            
-            public:
+            using Identifier = size_t;
+            //Struct interface
+            struct Identifiable : CoreType<Identifier> {
                 Label PrintLabel() const override;
                 std::string PrintValue() const override;
             };
 
             //Raw Datatype
-            using Identifier = size_t;
-            //Class interface
-            class Identifiable : public CoreType<Identifier> {
-            public:
+            using Name = std::array<encoder::ascii::Item, 10>;
+            //Struct interface
+            struct Nameable : CoreType<Name> {
+                static Name StringToName(const std::string& str);
+            
                 Label PrintLabel() const override;
                 std::string PrintValue() const override;
             };
@@ -73,9 +53,8 @@ namespace cafeteria_app {
                 MALE,
                 FEMALE
             };
-            //Class interface
-            class Genderable : public CoreType<Gender> {
-            public:
+            //Struct interface
+            struct Genderable : CoreType<Gender> {
                 Label PrintLabel() const override;
                 std::string PrintValue() const override;
             };
@@ -172,19 +151,37 @@ namespace cafeteria_app {
             private:
                 RawType group_;
             };
-            //Class interface
-            class Groupable : public CoreType<Group> {
-            public:
+            //Struct interface
+            struct Groupable : CoreType<Group> {
                 Label PrintLabel() const override;
                 std::string PrintValue() const override;
             };
+
+            template <typename Obj, typename Func>
+            static void IterateAcrossInterfaces(Obj* obj, Func func) {
+                if (auto identifiable = dynamic_cast<Identifiable*>(obj)) {
+                    func(identifiable);
+                }
+
+                if (auto nameable = dynamic_cast<Nameable*>(obj)) {
+                    func(nameable);
+                }
+
+                if (auto genderable = dynamic_cast<Genderable*>(obj)) {
+                    func(genderable);
+                }
+
+                if (auto groupable = dynamic_cast<Groupable*>(obj)) {
+                    func(groupable);
+                }
+            }
         } //namespace interfaces
 
-        enum class Users : char {
-            STUDENT
-        };
-
         namespace users {
+            enum class Users : char {
+                STUDENT
+            };
+            
             using namespace interfaces;
 
             //class Interface
@@ -216,17 +213,13 @@ namespace cafeteria_app {
             }
         } //namespace users
 
-        //app types
-        using UserPtr = std::unique_ptr<users::User>;
-        using Size = size_t;
-        using Index = size_t;
-        using TimePoint = std::time_t;
+        
 
-        struct Session {
+        /*struct Session {
             TimePoint time;
             Index first;
             Index last;
-        };
+        };*/
         
 
     } // namespace domain

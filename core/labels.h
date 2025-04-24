@@ -1,15 +1,13 @@
-#ifndef TEXT_VARS_H
-#define TEXT_VARS_H
+#ifndef LABELS_H
+#define LABELS_H
 
 #pragma once
-
-#include <string>
 
 namespace cafeteria_app {
     using Label = const char*;
     
-    namespace text_vars {
-        //Core types
+    namespace labels {
+    /*----------Core Types----------*/
         static constexpr Label NAME_LABEL = "name";
 
         static constexpr Label IDENTIFIER_LABEL = "identifier";
@@ -35,7 +33,28 @@ namespace cafeteria_app {
                 static constexpr Label TAIS_SUBGROUP4_LABEL = "tenth";
                 static constexpr Label TAIS_SUBGROUP5_LABEL = "eleventh";
                 static constexpr Label TAIS_SUBGROUP6_LABEL = "twelfth";
-    } //namespace text_vars
+    
+    
+    
+    
+    /*----------App Files----------*/
+        //Settings
+        static constexpr Label SEETINGS_PARENT_FOLDER = "settings";
+            static constexpr Label PATH_SETTINGS_FILE = "path_settings.json";
+
+        //Database
+        static constexpr Label DATABASE_PARENT_FOLDER = "database";
+            static constexpr Label BACKUP_FOLDER = "backup";
+            static constexpr Label DATA_FOLDER = "data";
+            static constexpr Label METADATA_FOLDER = "metadata";
+                static constexpr Label TYPES_METADATA_FILE = "types.dat";
+        
+        //Exports
+            static constexpr Label EXPORTS_PARENT_FOLDER = "exports";
+                static constexpr Label QR_FOLDER = "qr_codes";
+                static constexpr Label STATS_FOLDER = "stats";
+        
+    } //namespace labels
 } // namespace cafeteria_app
 
-#endif //TEXT_VARS_H
+#endif //LABELS_H

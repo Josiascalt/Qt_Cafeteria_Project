@@ -2,11 +2,13 @@
 #include <variant>
 
 #include "domain.h"
+#include "utilities\encoder.h"
+#include "labels.h"
 
 namespace cafeteria_app {
     namespace domain {
         namespace interfaces {
-        //class Namable member functions definition
+        //Struct Namable member functions definition
             Name Nameable::StringToName(const std::string& str) {
                 Name name;
                 encoder::ascii::EncodeDataInIterable(str.begin(), str.end(), name.begin(), name.size());
@@ -14,91 +16,91 @@ namespace cafeteria_app {
             }
             
             Label Nameable::PrintLabel() const {
-                return text_vars::NAME_LABEL;
+                return labels::NAME_LABEL;
             }
 
             std::string Nameable::PrintValue() const {
-                return encoder::ascii::DecodeDataFromIterable(this -> GetValue().begin(), this -> GetValue().end());
+                return encoder::ascii::DecodeDataFromIterable(this -> value.begin(), this -> value.end());
             }
             
-        //class Identifiable member functions definition
+        //Struct Identifiable member functions definition
             Label Identifiable::PrintLabel() const {
-                return text_vars::IDENTIFIER_LABEL;
+                return labels::IDENTIFIER_LABEL;
             }
 
             std::string Identifiable::PrintValue() const {
-                return std::to_string(this -> GetValue());
+                return std::to_string(this -> value);
             }
 
-        //class Genderable member functions definition
+        //Struct Genderable member functions definition
             Label Genderable::PrintLabel() const {
-                return text_vars::GENDER_LABEL;
+                return labels::GENDER_LABEL;
             }
 
             std::string Genderable::PrintValue() const {
-                return GetValue() == Gender::MALE ? text_vars::MALE_GENDER_LABEL : text_vars::FEMALE_GENDER_LABEL;
+                return value == Gender::MALE ? labels::MALE_GENDER_LABEL : labels::FEMALE_GENDER_LABEL;
             }
 
         //struct Group::WrappedTAA member functions definition
             Label Group::WrappedTAA::PrintLabel() const {
-                return text_vars::TAA_GROUP_LABEL;
+                return labels::TAA_GROUP_LABEL;
             }
 
             std::string Group::WrappedTAA::PrintValue() const {
                 switch (this -> value) {
                     case TAA::FIRST_GRADE:
-                        return text_vars::TAA_SUBGROUP1_LABEL;
+                        return labels::TAA_SUBGROUP1_LABEL;
                     case TAA::SECOND_GRADE:
-                        return text_vars::TAA_SUBGROUP2_LABEL;
+                        return labels::TAA_SUBGROUP2_LABEL;
                     case TAA::THIRD_GRADE:
-                        return text_vars::TAA_SUBGROUP3_LABEL;
+                        return labels::TAA_SUBGROUP3_LABEL;
                 }
 
-                return text_vars::TAA_GROUP_LABEL;
+                return labels::TAA_GROUP_LABEL;
             }
 
         //struct Group::WrappedTAC member functions definition
             Label Group::WrappedTAC::PrintLabel() const {
-                return text_vars::TAC_GROUP_LABEL;
+                return labels::TAC_GROUP_LABEL;
             }
 
             std::string Group::WrappedTAC::PrintValue() const {
                 switch (this -> value) {
                     case TAC::BILINGUAL_BUSINESS_DEPARTMENT:
-                        return text_vars::TAC_SUBGROUP1_LABEL;
+                        return labels::TAC_SUBGROUP1_LABEL;
                     case TAC::HEALTH_EDUCATION_DEPARTMENT:
-                        return text_vars::TAC_SUBGROUP2_LABEL;
+                        return labels::TAC_SUBGROUP2_LABEL;
                     case TAC::MUSIC_DEPARTMENT:
-                        return text_vars::TAC_SUBGROUP3_LABEL;
+                        return labels::TAC_SUBGROUP3_LABEL;
                     case TAC::THEOLOGY_DEPARTMENT:
-                        return text_vars::TAC_SUBGROUP4_LABEL;  
+                        return labels::TAC_SUBGROUP4_LABEL;  
                 }
 
-                return text_vars::TAC_GROUP_LABEL;
+                return labels::TAC_GROUP_LABEL;
             }
 
         //struct Group::WrappedTAIS member functions definition
             Label Group::WrappedTAIS::PrintLabel() const {
-                return text_vars::TAIS_GROUP_LABEL;
+                return labels::TAIS_GROUP_LABEL;
             }
 
             std::string Group::WrappedTAIS::PrintValue() const {
                 switch (this -> value) {
                     case TAIS::SEVENTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP1_LABEL;
+                        return labels::TAIS_SUBGROUP1_LABEL;
                     case TAIS::EIGHTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP2_LABEL;
+                        return labels::TAIS_SUBGROUP2_LABEL;
                     case TAIS::NINTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP3_LABEL;
+                        return labels::TAIS_SUBGROUP3_LABEL;
                     case TAIS::TENTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP4_LABEL;
+                        return labels::TAIS_SUBGROUP4_LABEL;
                     case TAIS::ELEVENTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP5_LABEL;
+                        return labels::TAIS_SUBGROUP5_LABEL;
                     case TAIS::TWELFTH_GRADE:
-                        return text_vars::TAIS_SUBGROUP6_LABEL;  
+                        return labels::TAIS_SUBGROUP6_LABEL;  
                 }
 
-                return text_vars::TAIS_GROUP_LABEL;
+                return labels::TAIS_GROUP_LABEL;
             }
 
         //class Group member functions definition
@@ -146,15 +148,15 @@ namespace cafeteria_app {
                 return !(*this == other);
             }
 
-            //class Groupable Group member functions definition
+            //Struct Groupable Group member functions definition
             Label Groupable::PrintLabel() const {
-                return text_vars::GROUP_LABEL;
+                return labels::GROUP_LABEL;
             }
 
             std::string Groupable::PrintValue() const {
-                return this -> GetValue().IsTAA() 
-                ? text_vars::TAA_GROUP_LABEL 
-                : (this -> GetValue().IsTAC() ? text_vars::TAC_GROUP_LABEL : text_vars::TAIS_GROUP_LABEL);
+                return this -> value.IsTAA() 
+                ? labels::TAA_GROUP_LABEL 
+                : (this -> value.IsTAC() ? labels::TAC_GROUP_LABEL : labels::TAIS_GROUP_LABEL);
             }
         } //namespace interfaces
     } // namespace domain

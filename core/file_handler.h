@@ -11,7 +11,7 @@
 #include <utility>
 #include <memory>
 
-#include "utilities\json\json.h"
+#include "json.h"
 
 namespace fs = std::filesystem;
 
@@ -26,8 +26,10 @@ namespace file_handler {
 
     using namespace literals;
     
-    fs::path CreatePathObject(fs::path path);
-    fs::path CreatePathObject(const char* path_obj);
+    fs::path CreatePathObject(fs::path path, bool create_recursively = false);
+    fs::path CreatePathObject(std::string path, bool create_recursively = false);
+    fs::path CreatePathObject(const char* path_obj, bool create_recursively = false);
+    
     
     //Overload fstream operator<< for accepting arrays
     template <typename Data, size_t Capacity>
@@ -43,14 +45,23 @@ namespace file_handler {
     class File {
     public:
         typedef T Type;
+
         enum class Mode : bool {
             TEXT,
             BINARY
         };
+
+        static fs::path& EnsureFileFormat(fs::path& path, const char* default_extension) {
+            if (!path.has_extension()) {
+                path.replace_extension(default_extension);
+            }
+
+            return path;
+        }
         
     public:
-        File(const fs::path& path, Mode mode = Mode::TEXT)
-        : FILENAME_(path)
+        File(fs::path path, const char* default_extension, Mode mode = Mode::TEXT)
+        : FILENAME_(CreatePathObject(std::move(EnsureFileFormat(path, default_extension))))
         , MODE_(mode)
         {
             OpenFile();
@@ -165,10 +176,10 @@ namespace file_handler {
             if (trunc) {
                 switch (MODE_) {
                     case Mode::TEXT:
-                        open_mode = std::ios_base::out | std::ios_base::in;
+                        open_mode = std::ios_base::trunc | std::ios_base::out | std::ios_base::in;
                         break;
                     case Mode::BINARY:
-                        open_mode = std::ios_base::out | std::ios_base::in | std::ios_base::binary;
+                        open_mode = std::ios_base::trunc | std::ios_base::out | std::ios_base::in | std::ios_base::binary;
                         break;
                 }
             } else {
@@ -270,11 +281,10 @@ namespace file_handler {
     template <typename T>
     class BinaryFile final : public File<T> {
     public:
-        BinaryFile(const fs::path& path):
-
-        File<T>(path, File<T>::Mode::BINARY)
+        BinaryFile(fs::path path)
+        : File<T>(std::move(path), ".dat", File<T>::Mode::BINARY)
         {
-        
+
         }
 
         template <typename CompatibleType>
@@ -289,14 +299,14 @@ namespace file_handler {
 
     class TextFile : public File<char> {
     public:
-        TextFile(const fs::path& path);
+        TextFile(fs::path path);
 
         std::string Substr(Size count = 1, std::optional<Index> index = std::nullopt);
     };
     
     class JsonFile : protected File<json::Document> {
     public:
-        JsonFile(const fs::path& path, const Type* temp_doc = nullptr);
+        JsonFile(fs::path path, const Type* temp_doc = nullptr);
         Type Get();
         void Override(const Type* doc);
         void Restore();

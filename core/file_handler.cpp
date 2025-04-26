@@ -28,37 +28,49 @@ namespace file_handler {
         }
     }//namespace detail
     
-    fs::path CreatePathObject(fs::path path) {
-        if (!fs::exists(path)) {
-            if (!path.has_extension()) {
-                fs::create_directory(path);
-                return path;
-            }
-            
-            static std::ofstream new_file;
-            new_file.open(path);
-
-            if (new_file) {
-                new_file.close();
-            }
-            else {
-                throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
+    fs::path CreatePathObject(fs::path path, bool create_recursively) {
+        if (fs::exists(path)) {
+            return path;
+        }
+    
+        if (create_recursively) {
+            if (path.has_relative_path() && path.has_parent_path()) {
+                CreatePathObject(path.parent_path(), true);
             }
         }
-
+    
+        if (!path.has_extension()) {
+            fs::create_directory(path);
+            return path;
+        }
+        
+        static std::ofstream new_file;
+        new_file.open(path);
+    
+        if (new_file) {
+            new_file.close();
+        } else {
+            throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
+        }
+        
         return path;
     }
-    fs::path CreatePathObject(const char* path_obj) {
+
+    fs::path CreatePathObject(std::string path_obj, bool create_recursively) {
         auto path = detail::StandardizePath(std::move(path_obj));
         return CreatePathObject(std::move(path));
+    }
+
+    fs::path CreatePathObject(const char* path_obj, bool create_recursively) {
+        return CreatePathObject(std::string(path_obj));
     }
 
     
 
 
     //class TextFile member functions definition
-    TextFile::TextFile(const fs::path& path) 
-    : File<char>(path)
+    TextFile::TextFile(fs::path path) 
+    : File<char>(std::move(path), ".txt")
     {
     }
 
@@ -69,8 +81,8 @@ namespace file_handler {
     }
     
     //class JsonFile member functions definition
-    JsonFile::JsonFile(const fs::path& path, const Type* temp_doc) 
-    : File<json::Document>(path)
+    JsonFile::JsonFile(fs::path path, const Type* temp_doc) 
+    : File<json::Document>(std::move(path), ".json")
     , temp_doc_(temp_doc)
     {
     }

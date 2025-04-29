@@ -11,7 +11,7 @@
 #include <utility>
 #include <memory>
 
-#include "json.h"
+#include "utilities\json\json.h"
 
 namespace fs = std::filesystem;
 
@@ -26,7 +26,7 @@ namespace file_handler {
 
     using namespace literals;
     
-    fs::path CreatePathObject(fs::path path, bool create_recursively = false);
+    fs::path CreatePathObject(fs::path&& path, bool create_recursively = false);
     fs::path CreatePathObject(std::string path, bool create_recursively = false);
     fs::path CreatePathObject(const char* path_obj, bool create_recursively = false);
     
@@ -268,7 +268,7 @@ namespace file_handler {
         }
     
     private: //Data members
-        const fs::path& FILENAME_;
+        fs::path FILENAME_;
         const Mode MODE_;
 
         Size size_;

@@ -28,7 +28,7 @@ namespace file_handler {
         }
     }//namespace detail
     
-    fs::path CreatePathObject(fs::path path, bool create_recursively) {
+    fs::path CreatePathObject(fs::path&& path, bool create_recursively) {
         if (fs::exists(path)) {
             return path;
         }
@@ -57,12 +57,12 @@ namespace file_handler {
     }
 
     fs::path CreatePathObject(std::string path_obj, bool create_recursively) {
-        auto path = detail::StandardizePath(std::move(path_obj));
-        return CreatePathObject(std::move(path));
+
+        return CreatePathObject(detail::StandardizePath(std::move(path_obj)), create_recursively);
     }
 
     fs::path CreatePathObject(const char* path_obj, bool create_recursively) {
-        return CreatePathObject(std::string(path_obj));
+        return CreatePathObject(std::string(path_obj), create_recursively);
     }
 
     

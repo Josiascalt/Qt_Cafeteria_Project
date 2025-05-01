@@ -1,15 +1,20 @@
 #include <utility>
 
+#include "labels.h"
+#include "file_handler.h"
 #include "backup_handler.h"
-#include "utilities\json\json.h"
+
+using namespace std::literals;
 
 namespace cafeteria_app {
     namespace backup {
         //class UserDataBackup member functions definition
-        UserDataBackup::UserDataBackup(const json::Dict& path_settings)
-        : paths_settings_(path_settings)
-        , types_(file_handler::CreatePathObject(labels::TYPES_METADATA_FILE))
+        UserDataBackup::UserDataBackup(fs::path path)
+        : target_(std::move(path))
         {
+            //set metadata files
+            auto metadata_folder = file_handler::MakeValidPath(target_ / labels::DATABASE_PARENT_FOLDER);
+            this->types_.SetFilename(metadata_folder/ fs::path(labels::TYPES_METADATA_FILE));
         }
 
         /*std::deque<UserPtr> UserDataBackup::Deserialize() {

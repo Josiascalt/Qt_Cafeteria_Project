@@ -28,20 +28,20 @@ namespace file_handler {
         }
     }//namespace detail
     
-    fs::path CreatePathObject(fs::path&& path, bool create_recursively) {
+    void CreateFileSystemObject(const fs::path& path, bool create_recursively) {
         if (fs::exists(path)) {
-            return path;
+            return;
         }
     
         if (create_recursively) {
             if (path.has_relative_path() && path.has_parent_path()) {
-                CreatePathObject(path.parent_path(), true);
+                CreateFileSystemObject(path.parent_path(), true);
             }
         }
     
         if (!path.has_extension()) {
             fs::create_directory(path);
-            return path;
+            return;
         }
         
         static std::ofstream new_file;
@@ -52,26 +52,33 @@ namespace file_handler {
         } else {
             throw fs::filesystem_error{"Fatal error while creating/opening path object.", path , std::make_error_code(std::errc::io_error)};
         }
+    }
+
+    fs::path MakeValidPath(fs::path&& path, bool create_recursively) {
+        CreateFileSystemObject(path, create_recursively);
         
         return path;
     }
 
-    fs::path CreatePathObject(std::string path_obj, bool create_recursively) {
-
-        return CreatePathObject(detail::StandardizePath(std::move(path_obj)), create_recursively);
+    fs::path MakeValidPath(std::string path_obj, bool create_recursively) {
+        return MakeValidPath(detail::StandardizePath(std::move(path_obj)), create_recursively);
     }
 
-    fs::path CreatePathObject(const char* path_obj, bool create_recursively) {
-        return CreatePathObject(std::string(path_obj), create_recursively);
+    fs::path MakeValidPath(const char* path_obj, bool create_recursively) {
+        return MakeValidPath(std::string(path_obj), create_recursively);
     }
 
     
 
 
     //class TextFile member functions definition
-    TextFile::TextFile(fs::path path) 
-    : File<char>(std::move(path), ".txt")
-    {
+    TextFile::TextFile()
+    : File<char>(File<char>::Mode::TEXT, "txt"_p) {
+
+    }
+    TextFile::TextFile(fs::path filename) 
+    : File<char>(File<char>::Mode::TEXT, "txt"_p, std::move(filename)) {
+
     }
 
     std::string TextFile::Substr(Size count, std::optional<Index> index) {
@@ -81,8 +88,13 @@ namespace file_handler {
     }
     
     //class JsonFile member functions definition
-    JsonFile::JsonFile(fs::path path, const Type* temp_doc) 
-    : File<json::Document>(std::move(path), ".json")
+    JsonFile::JsonFile(const Type* temp_doc) 
+    : File<json::Document>(File<json::Document>::Mode::TEXT, "json"_p)
+    , temp_doc_(temp_doc)
+    {
+    }
+    JsonFile::JsonFile(fs::path filename, const Type* temp_doc) 
+    : File<json::Document>(File<json::Document>::Mode::TEXT, "json"_p, std::move(filename))
     , temp_doc_(temp_doc)
     {
     }

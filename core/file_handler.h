@@ -26,9 +26,11 @@ namespace file_handler {
 
     using namespace literals;
     
-    fs::path CreatePathObject(fs::path&& path, bool create_recursively = false);
-    fs::path CreatePathObject(std::string path, bool create_recursively = false);
-    fs::path CreatePathObject(const char* path_obj, bool create_recursively = false);
+    void CreateFileSystemObject(const fs::path& path, bool create_recursively = false);
+
+    fs::path MakeValidPath(fs::path&& path, bool create_recursively = false);
+    fs::path MakeValidPath(std::string path, bool create_recursively = false);
+    fs::path MakeValidPath(const char* path_obj, bool create_recursively = false);
     
     
     //Overload fstream operator<< for accepting arrays
@@ -50,23 +52,32 @@ namespace file_handler {
             TEXT,
             BINARY
         };
-
-        static fs::path& EnsureFileFormat(fs::path& path, const char* default_extension) {
-            if (!path.has_extension()) {
-                path.replace_extension(default_extension);
-            }
-
-            return path;
-        }
         
     public:
-        File(fs::path path, const char* default_extension, Mode mode = Mode::TEXT)
-        : FILENAME_(CreatePathObject(std::move(EnsureFileFormat(path, default_extension))))
-        , MODE_(mode)
+        File(Mode mode, fs::path default_extension) 
+        : MODE_(mode)
+        , DEFAULT_EXTENSION(std::move(default_extension)) {
+
+        }
+
+        File(Mode mode, fs::path default_extension, fs::path filename)
+        : MODE_(mode)
+        , DEFAULT_EXTENSION(std::move(default_extension))
+        , filename_(std::move(filename))
         {
+            ValidateExtension();
+            CreateFileSystemObject(filename_);
             OpenFile();
             InitProps();
-        } 
+        }
+        
+        virtual void SetFilename(fs::path filename) {
+            filename_ = std::move(filename);
+            ValidateExtension();
+            CreateFileSystemObject(filename_);
+
+            Reset(false);
+        }
 
         virtual Size GetSize() const {
             return this -> ToElementSize(this -> size_);
@@ -76,11 +87,16 @@ namespace file_handler {
             return size_ == 0;
         }
 
-        virtual void Reset() {
-            file_.clear();
+        virtual void Reset(bool trunc = true) {
+            if (!file_) {
+                file_.clear();
+            }
+            
+            if (GetFile().is_open()) {
+                file_.close();
+            }
 
-            GetFile().close();
-            OpenFile(true);
+            OpenFile(trunc);
             InitProps();
         }
 
@@ -162,7 +178,14 @@ namespace file_handler {
         virtual ~File() = default;
 
     private:
+        void ValidateExtension() {
+            if (!filename_.has_extension()) {
+                filename_.replace_extension(DEFAULT_EXTENSION);
+            }
+        }
+
         std::fstream& GetFile() {
+            
             if (!file_) {
                 throw fs::filesystem_error {"Unexpected error, while attempting to use file.", std::make_error_code(std::errc::io_error)};
             } 
@@ -193,7 +216,7 @@ namespace file_handler {
                 }
             }
 
-            GetFile().open(FILENAME_, open_mode);
+            GetFile().open(filename_, open_mode);
         }
 
         void InitProps() {
@@ -267,10 +290,12 @@ namespace file_handler {
             read_index_ = file_.tellg();
         }
     
-    private: //Data members
-        fs::path FILENAME_;
-        const Mode MODE_;
+    private: //Data members        
+        const Mode MODE_;  
+        const fs::path DEFAULT_EXTENSION;
 
+        fs::path filename_;
+        
         Size size_;
         Index write_index_;
         Index read_index_;
@@ -281,9 +306,13 @@ namespace file_handler {
     template <typename T>
     class BinaryFile final : public File<T> {
     public:
-        BinaryFile(fs::path path)
-        : File<T>(std::move(path), ".dat", File<T>::Mode::BINARY)
-        {
+        BinaryFile() 
+        : File<T>(File<T>::Mode::BINARY, "bin"_p) {
+
+        }
+
+        BinaryFile(fs::path filename)
+        : File<T>(File<T>::Mode::BINARY, "bin"_p, std::move(filename)) {
 
         }
 
@@ -299,14 +328,16 @@ namespace file_handler {
 
     class TextFile : public File<char> {
     public:
-        TextFile(fs::path path);
+        TextFile();
+        TextFile(fs::path filename);
 
         std::string Substr(Size count = 1, std::optional<Index> index = std::nullopt);
     };
     
     class JsonFile : protected File<json::Document> {
     public:
-        JsonFile(fs::path path, const Type* temp_doc = nullptr);
+        JsonFile(const Type* temp_doc = nullptr);
+        JsonFile(fs::path filename, const Type* temp_doc = nullptr);
         Type Get();
         void Override(const Type* doc);
         void Restore();

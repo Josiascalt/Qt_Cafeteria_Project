@@ -8,19 +8,14 @@
 #include "domain.h"
 #include "type_aliases.h"
 #include "file_handler.h"
-#include "utilities\json\json.h"
 
 namespace cafeteria_app {
     namespace backup {
         using namespace cafeteria_app::type_aliases;
-        
-        namespace exceptions {
-            struct InvalidPtr {};
-        }
 
         class UserDataBackup {
         public:
-            UserDataBackup(const json::Dict& path_settings);
+            UserDataBackup(fs::path path);
 
             template <typename UserBased>
             void Serialize(UserBased* user) {
@@ -32,8 +27,7 @@ namespace cafeteria_app {
 
                 //data
                 domain::interfaces::IterateAcrossInterfaces(user, [&](auto* interface) {
-                    auto path = file_handler::CreatePathObject((interface->PrintLabel() + ".dat"s));
-                    file_handler::BinaryFile<decltype(interface->value)> f(path);
+                    file_handler::BinaryFile<decltype(interface->value)> f(this->target_ / fs::path(interface->PrintLabel()));
                     f.Write(&interface->value);
                 });
 
@@ -42,9 +36,9 @@ namespace cafeteria_app {
             //std::deque<UserPtr> Deserialize();
 
         private:
-            template <typename UserBased>
-            inline void SerializeMetadata(UserBased* user) {
-                domain::users::Users user_type = user->GetUserType();
+            inline void SerializeMetadata(domain::users::User* user) {
+
+                auto user_type = user->GetUserType();
 
                 types_.Write(&user_type);
             }
@@ -52,7 +46,7 @@ namespace cafeteria_app {
             //UserPtr DeserializeMetadata();
 
         private:
-            const json::Dict& paths_settings_;
+            const fs::path target_;
 
             //Metadata
             file_handler::BinaryFile<domain::users::Users> types_;
@@ -62,7 +56,7 @@ namespace cafeteria_app {
         public:
             void Serialize(domain::props_interfaces::Identifiable* identifiable, TimePoint timepoint) {
                 if (!identifiable) {
-                    throw exceptions::InvalidPtr{};
+                    throw exceptions::{};
                     
                 } 
 

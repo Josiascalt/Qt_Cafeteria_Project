@@ -496,8 +496,8 @@ namespace testing {
         }
 
         void Test() {
-            auto bfile_path = CreatePathObject("out.dat");
-            auto tfile_path = CreatePathObject("out.txt");
+            auto bfile_path = MakeValidPath("out.dat");
+            auto tfile_path = MakeValidPath("out.txt");
             
             BinaryFile<int> bfile(bfile_path);
             TextFile tfile(tfile_path);

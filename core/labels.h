@@ -47,7 +47,7 @@ namespace cafeteria_app {
             static constexpr Label BACKUP_FOLDER = "backup";
             static constexpr Label DATA_FOLDER = "data";
             static constexpr Label METADATA_FOLDER = "metadata";
-                static constexpr Label TYPES_METADATA_FILE = "types.dat";
+                static constexpr Label TYPES_METADATA_FILE = "types.mdat";
         
         //Exports
             static constexpr Label EXPORTS_PARENT_FOLDER = "exports";

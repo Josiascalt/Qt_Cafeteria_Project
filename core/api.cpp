@@ -16,9 +16,9 @@ namespace cafeteria_app {
 
         //Set folders and files to hold the program settings
 
-        const auto SETTINGS = file_handler::CreatePathObject(labels::SEETINGS_PARENT_FOLDER);
+        const auto SETTINGS = file_handler::MakeValidPath(labels::SEETINGS_PARENT_FOLDER);
 
-        const auto PATH_SETTINGS = file_handler::CreatePathObject(SETTINGS / labels::PATH_SETTINGS_FILE);
+        const auto PATH_SETTINGS = file_handler::MakeValidPath(SETTINGS / labels::PATH_SETTINGS_FILE);
 
         //Read the contents of the path settings files using a JsonFile
         

@@ -13,9 +13,9 @@ namespace cafeteria_app {
     namespace database {
         using namespace cafeteria_app::type_aliases;
 
-        class UserDataHandler {
+        class UserDatabase {
         public:
-            UserDataHandler(fs::path path);
+            UserDatabase(fs::path path);
 
             template <typename UserBased>
             void Serialize(UserBased* user) {

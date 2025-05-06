@@ -7,8 +7,8 @@
 
 namespace cafeteria_app {
     namespace database {
-        //class UserDataHandler member functions definition
-        UserDataHandler::UserDataHandler(fs::path path)
+        //class UserDatabase member functions definition
+        UserDatabase::UserDatabase(fs::path path)
         : target_(std::move(path))
         {
             //set metadata files
@@ -16,7 +16,7 @@ namespace cafeteria_app {
             this->types_.SetFilename(metadata_folder/ fs::path(labels::TYPES_METADATA_FILE));
         }
 
-        UserPtr UserDataHandler::DeserializeMetadata() {
+        UserPtr UserDatabase::DeserializeMetadata() {
             domain::users::Users user_type;
 
             this->types_.Read(&user_type);
@@ -24,7 +24,7 @@ namespace cafeteria_app {
             return domain::users::MakeUser(user_type);
         }
 
-        std::deque<UserPtr> UserDataHandler::Deserialize() {
+        std::deque<UserPtr> UserDatabase::Deserialize() {
             std::deque<UserPtr> result;
 
             auto total_users = types_.GetSize();

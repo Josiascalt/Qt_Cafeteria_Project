@@ -1,3 +1,5 @@
+#ifndef JSON_H
+#define JSON_H
 #pragma once
 
 #include <iostream>
@@ -155,3 +157,4 @@ std::ostream& operator<<(std::ostream& out, const Document& doc);
 std::istream& operator>>(std::istream& in, Document& doc);
 
 }  // namespace json
+#endif // JSON_H

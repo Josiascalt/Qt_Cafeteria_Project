@@ -1,39 +1,41 @@
 #include <utility>
-#include <iostream>
 
 #include "request_handler.h"
-#include "external\qr_maker\api.cpp"
+#include "external\qr_maker\api.h"
 
 namespace cafeteria_app {
-    namespace request_handler {
+    namespace request {
+        namespace exceptions {
+            struct InvalidUser : public std::invalid_argument {
+                using std::invalid_argument::invalid_argument;
+            };
+        } //namespace exceptions
+
         //class RequestHandler member functions definition
-        RequestHandler::RequestHandler(const backup::UserDataPaths& paths)
-            : user_data_(paths)
-            , catalogue_(user_data_.Deserialize())
+        RequestHandler::RequestHandler(fs::path path)
+        : database_(std::move(path))
+        , catalogue_(database_.Deserialize())
         {
 
         }
 
-        bool RequestHandler::AddUser(UserPtr&& user) {
-            user_data_.Serialize(user.get());
-            auto raw_identifier = catalogue_.AddUser(std::move(user));
-            this->GenerateUserQrCode(raw_identifier);
-            
-            return true;
+        void RequestHandler::AddUser(UserPtr&& user) {
+            if (!catalogue_.HasUser(user)) {
+                throw exceptions::InvalidUser{"User with identifier " + std::to_string(user->GetIdentifier()) + " already exists."};
+            }
+
+            database_.Serialize(user.get());
+            catalogue_.AddUser(std::move(user));
         }
 
-        const UserPtr& RequestHandler::GetUserByIdentifier(domain::interfaces::interfaces::Identifier identifier) {
+        const UserPtr& RequestHandler::GetUserByIdentifier(domain::interfaces::Identifier identifier) {
             return catalogue_.GetUserByIdentifier(identifier);
         }
 
-        const std::deque<UserPtr>& RequestHandler::GetUsers() const {
-            return catalogue_.GetUsers();
-        }
-
-        void RequestHandler::GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier) {
+        /*void RequestHandler::GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier) {
             std::cout << '\n' << qr_maker::GenerateSvgQrCode(identifier) << '\n';
-        }
+        }*/
 
-    } //namespace request_handler
+    } //namespace request
 } //namespace cafeteria_app
 

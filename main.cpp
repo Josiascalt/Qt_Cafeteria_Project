@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    Start();
+    cafeteria_app::Start();
 
     LoginForm w(nullptr/*, &handler*/);
     w.show();

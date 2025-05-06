@@ -10,7 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     core/api.cpp \
-    core/backup_handler.cpp \
+    core/database_handler.cpp \
     core/domain.cpp \
     core/external/excel_maker/api.cpp \
     core/external/excel_maker/src/IZipArchive.cpp \
@@ -47,9 +47,10 @@ SOURCES += \
     core/external/excel_maker/src/pugixml.cpp \
     core/external/qr_maker/api.cpp \
     core/external/qr_maker/src/qrcodegen.cpp \
-    core/file_handler.cpp \
     core/request_handler.cpp \
     core/user_catalogue.cpp \
+    core/utilities/document_types.cpp \
+    core/utilities/file_handler/file_handler.cpp \
     core/utilities/json/json.cpp \
     core/utilities/json/json_builder.cpp \
     dashboard.cpp \
@@ -59,7 +60,7 @@ SOURCES += \
 
 HEADERS += \
     core/api.h \
-    core/backup_handler.h \
+    core/database_handler.h \
     core/document_templates.h \
     core/domain.h \
     core/external/excel_maker/api.h \
@@ -100,13 +101,15 @@ HEADERS += \
     core/external/excel_maker/src/zippy.hpp \
     core/external/qr_maker/api.h \
     core/external/qr_maker/src/qrcodegen.h \
-    core/file_handler.h \
-    core/globals.h \
+    core/labels.h \
     core/record_catalogue.h \
     core/request_handler.h \
     core/tests.h \
+    core/type_aliases.h \
     core/user_catalogue.h \
+    core/utilities/document_types.h \
     core/utilities/encoder.h \
+    core/utilities/file_handler/file_handler.h \
     core/utilities/json/json.h \
     core/utilities/json/json_builder.h \
     core/utilities/utilities.h \

@@ -25,7 +25,7 @@ namespace cafeteria_app {
         };
     } //namespace detail
 
-    /*cafeteria_app::request_handler::RequestHandler*/void Start() {
+    cafeteria_app::request::RequestHandler Start() {
         //Get the path to the settings folder
         const auto SETTINGS = file_handler::MakeValidPath(labels::SEETINGS_PARENT_FOLDER);
 
@@ -33,14 +33,10 @@ namespace cafeteria_app {
         file_handler::JsonFile path_settings_file(SETTINGS / labels::PATH_SETTINGS_FILE, &cafeteria_app::document_templates::json::TEMPLATE_PATH_SETTINGS);
         auto path_settings = path_settings_file.Get();
 
-        std::unique_ptr<database::UserDataHandler> taa_db;
-        std::unique_ptr<database::UserDataHandler> tac_db;
-        std::unique_ptr<database::UserDataHandler> tais_db;
+        fs::path tac_db;
 
         try {
-            taa_db = std::make_unique<database::UserDataHandler>(detail::GetPathSetting(path_settings, labels::TAA_GROUP_LABEL,labels::DATABASE_PARENT_FOLDER, labels::DATA_FOLDER));
-            tac_db = std::make_unique<database::UserDataHandler>(detail::GetPathSetting(path_settings, labels::TAC_GROUP_LABEL,labels::DATABASE_PARENT_FOLDER, labels::DATA_FOLDER));
-            tais_db = std::make_unique<database::UserDataHandler>(detail::GetPathSetting(path_settings, labels::TAIS_GROUP_LABEL,labels::DATABASE_PARENT_FOLDER, labels::DATA_FOLDER));
+            tac_db = detail::GetPathSetting(path_settings, labels::TAC_GROUP_LABEL,labels::DATABASE_PARENT_FOLDER, labels::DATA_FOLDER);
         } 
 
         catch (const json::ContextError& e) {
@@ -91,7 +87,7 @@ namespace cafeteria_app {
         
 
         
-        //return cafeteria_app::request_handler::RequestHandler{USER_DATA_PATHS};
+        return cafeteria_app::request::RequestHandler{std::move(tac_db)};
     }
 } //namespace cafeteria_app
 

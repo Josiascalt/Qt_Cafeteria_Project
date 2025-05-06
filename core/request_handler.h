@@ -18,7 +18,7 @@ namespace cafeteria_app {
             bool AddUser(UserPtr&& user);
             const UserPtr& GetUserByIdentifier(domain::interfaces::interfaces::Identifier identifier);
             const std::deque<UserPtr>& GetUsers() const;
-
+            
         private:
             void GenerateUserQrCode(const database::UserCatalogue::RawIdentifier& identifier);
         private:

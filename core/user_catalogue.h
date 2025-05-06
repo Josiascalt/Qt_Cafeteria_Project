@@ -6,34 +6,26 @@
 #include <deque>
 #include <unordered_map>
 
-
 #include "domain.h"
+#include "type_aliases.h"
 
 namespace cafeteria_app {
-    namespace database {
+    namespace catalogue {
 
-        using namespace domain::types;
-        using namespace domain::interfaces;
+        using namespace type_aliases;
 
         class UserCatalogue {
-        public:
-            using RawIdentifier = std::string;
         public:
             UserCatalogue();
             UserCatalogue(std::deque<UserPtr>&& users);
 
-            //bool HasUser(const UserPtr& user) const;
-            RawIdentifier AddUser(UserPtr&& user);
-            const UserPtr& GetUserByIdentifier(interfaces::Identifier identifier) const;
-            const std::deque<UserPtr>& GetUsers() const;
-
-        private:
-            RawIdentifier AssignIdentifier(Identifiable* identifiable_user) const;
-
+            bool HasUser(const UserPtr& user) const;
+            void AddUser(UserPtr&& user);
+            const UserPtr& GetUserByIdentifier(domain::interfaces::Identifier identifier) const;
         private:
             std::deque<UserPtr> users_;
-            std::unordered_map<interfaces::Identifier, Index> identifier_to_user_;
+            std::unordered_map<domain::interfaces::Identifier, Index> identifier_to_user_;
         };
-    } //namespace database
+    } //namespace catalogue
 } //namespace cafeteria_app
 #endif // USER_CATALOGUE_H

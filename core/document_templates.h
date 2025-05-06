@@ -1,4 +1,7 @@
+#ifndef DOCUMENT_TEMPLATES_H
+#define DOCUMENT_TEMPLATES_H
 #pragma once
+
 #include "labels.h"
 #include "utilities\json\json_builder.h"
 #include "utilities\json\json.h"
@@ -72,3 +75,4 @@ namespace cafeteria_app {
         } //namespace qr
     } //namespace document_templates
 } //namespace cafeteria_app
+#endif // DOCUMENT_TEMPLATES_H

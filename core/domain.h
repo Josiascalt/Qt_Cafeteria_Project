@@ -1,3 +1,5 @@
+#ifndef CAFETERIA_APP_DOMAIN_H
+#define CAFETERIA_APP_DOMAIN_H
 #pragma once
 
 #include <string>
@@ -157,21 +159,23 @@ namespace cafeteria_app {
                 std::string PrintValue() const override;
             };
 
-            template <typename Obj, typename Func>
-            static void IterateAcrossInterfaces(Obj* obj, Func func) {
-                if (auto identifiable = dynamic_cast<Identifiable*>(obj)) {
-                    func(identifiable);
+            template <typename UserBased, typename Func>
+            static void IterateAcrossInterfaces(UserBased* u, Func func) {
+                if (!u) {
+                    throw std::invalid_argument("Invalid user pointer.");
                 }
 
-                if (auto nameable = dynamic_cast<Nameable*>(obj)) {
+                func(u->GetAsIdentifiable());
+
+                if (auto nameable = dynamic_cast<Nameable*>(u)) {
                     func(nameable);
                 }
 
-                if (auto genderable = dynamic_cast<Genderable*>(obj)) {
+                if (auto genderable = dynamic_cast<Genderable*>(u)) {
                     func(genderable);
                 }
 
-                if (auto groupable = dynamic_cast<Groupable*>(obj)) {
+                if (auto groupable = dynamic_cast<Groupable*>(u)) {
                     func(groupable);
                 }
             }
@@ -189,11 +193,25 @@ namespace cafeteria_app {
             public:
                 virtual Users GetUserType() = 0;
 
+                void SetIdentifier(interfaces::Identifier identifier) {
+                    identifiable_.value = identifier;
+                }
+
+                interfaces::Identifier GetIdentifier() const {
+                    return identifiable_.value;
+                }
+
+                interfaces::Identifiable* GetAsIdentifiable() {
+                    return &identifiable_;
+                }
+
+            
                 virtual ~User() = default;
+            private:
+                interfaces::Identifiable identifiable_;
             };
 
             class Student final : public User
-                                , public Identifiable
                                 , public Nameable
                                 , public Genderable
                                 , public Groupable {
@@ -224,5 +242,5 @@ namespace cafeteria_app {
 
     } // namespace domain
 } // namespace cafeteria_app
-
+#endif // CAFETERIA_APP_DOMAIN_H
 

@@ -11,8 +11,6 @@
 #include <utility>
 #include <memory>
 
-#include "utilities\json\json.h"
-
 namespace fs = std::filesystem;
 
 namespace file_handler {
@@ -71,7 +69,7 @@ namespace file_handler {
             InitProps();
         }
         
-        virtual void SetFilename(fs::path filename) {
+        void SetFilename(fs::path filename) {
             filename_ = std::move(filename);
             ValidateExtension();
             CreateFileSystemObject(filename_);
@@ -79,15 +77,19 @@ namespace file_handler {
             Reset(false);
         }
 
-        virtual Size GetSize() const {
+        const fs::path& GetFilename() const {
+            return filename_;
+        }
+
+        Size GetSize() const {
             return this -> ToElementSize(this -> size_);
         }
 
-        virtual bool IsEmpty() const {
+        bool IsEmpty() const {
             return size_ == 0;
         }
 
-        virtual void Reset(bool trunc = true) {
+        void Reset(bool trunc = true) {
             if (!file_) {
                 file_.clear();
             }
@@ -100,7 +102,7 @@ namespace file_handler {
             InitProps();
         }
 
-        virtual Index Write(T* source
+        Index Write(T* source
                          , Size count = 1
                          , std::optional<Index> index = std::nullopt) {
 
@@ -333,18 +335,5 @@ namespace file_handler {
 
         std::string Substr(Size count = 1, std::optional<Index> index = std::nullopt);
     };
-    
-    class JsonFile : protected File<json::Document> {
-    public:
-        JsonFile(const Type* temp_doc = nullptr);
-        JsonFile(fs::path filename, const Type* temp_doc = nullptr);
-        Type Get();
-        void Override(const Type* doc);
-        void Restore();
-    private:
-        const Type* temp_doc_;
-    };
-
-
 } //namespace file_handler
 #endif // FILE_HANDLER_H

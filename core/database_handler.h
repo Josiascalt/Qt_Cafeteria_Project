@@ -7,15 +7,15 @@
 
 #include "domain.h"
 #include "type_aliases.h"
-#include "file_handler.h"
+#include "utilities\file_handler\file_handler.h"
 
 namespace cafeteria_app {
-    namespace backup {
+    namespace database {
         using namespace cafeteria_app::type_aliases;
 
-        class UserDataBackup {
+        class UserDataHandler {
         public:
-            UserDataBackup(fs::path path);
+            UserDataHandler(fs::path path);
 
             template <typename UserBased>
             void Serialize(UserBased* user) {
@@ -33,7 +33,7 @@ namespace cafeteria_app {
 
             }
 
-            //std::deque<UserPtr> Deserialize();
+            std::deque<UserPtr> Deserialize();
 
         private:
             inline void SerializeMetadata(domain::users::User* user) {
@@ -43,7 +43,7 @@ namespace cafeteria_app {
                 types_.Write(&user_type);
             }
 
-            //UserPtr DeserializeMetadata();
+            UserPtr DeserializeMetadata();
 
         private:
             const fs::path target_;
@@ -87,6 +87,6 @@ namespace cafeteria_app {
             file_handler::BinaryFile<domain::props_interfaces::Identifiable::Type> identifiers_;
             file_handler::BinaryFile<TimePoint> timepoints_;
         };*/
-    } //namespace backup
+    } //namespace database
 } //namespace cafeteria_app
 #endif // BACKUP_HANDLER_H

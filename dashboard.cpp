@@ -1,11 +1,10 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
 
-Dashboard::Dashboard(QWidget *parent/*, cafeteria_app::request_handler::RequestHandler *handler*/, QMainWindow *login_form)
+Dashboard::Dashboard(QWidget *parent, cafeteria_app::CoreHandler *core)
     : QWidget(parent)
     , ui(new Ui::Dashboard)
-    //, handler_(handler)
-    , login_form_(login_form)
+    , core_(core)
     , new_user_form_(nullptr)
 
 {
@@ -43,10 +42,7 @@ Dashboard::~Dashboard()
 
 void Dashboard::on_exit_button__clicked()
 {
-    this->close();
-    if (login_form_) {
-        login_form_->show();
-    }
+
 }
 
 

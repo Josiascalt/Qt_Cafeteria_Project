@@ -1,5 +1,5 @@
-#include "core/api.cpp"
-#include "loginform.h"
+#include "dashboard.h"
+#include "core\api.cpp"
 
 #include <QApplication>
 #include <QLocale>
@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    cafeteria_app::Start();
+    auto core = cafeteria_app::Start();
 
-    LoginForm w(nullptr/*, &handler*/);
-    w.show();
+    Dashboard d(nullptr, &core);
+    d.show();
     return a.exec();
 }

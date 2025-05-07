@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    admin_dashboard.cpp \
     core/api.cpp \
     core/database_handler.cpp \
     core/domain.cpp \
@@ -54,11 +55,12 @@ SOURCES += \
     core/utilities/json/json.cpp \
     core/utilities/json/json_builder.cpp \
     dashboard.cpp \
+    login.cpp \
     main.cpp \
-    loginform.cpp \
     newuserform.cpp
 
 HEADERS += \
+    admin_dashboard.h \
     core/api.h \
     core/database_handler.h \
     core/document_templates.h \
@@ -114,12 +116,13 @@ HEADERS += \
     core/utilities/json/json_builder.h \
     core/utilities/utilities.h \
     dashboard.h \
-    loginform.h \
+    login.h \
     newuserform.h
 
 FORMS += \
+    admin_dashboard.ui \
     dashboard.ui \
-    loginform.ui \
+    login.ui \
     newuserform.ui
 
 TRANSLATIONS += \

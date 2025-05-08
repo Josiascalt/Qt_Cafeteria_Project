@@ -545,6 +545,9 @@ border-radius: 10px;
      <height>600</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <widget class="QLabel" name="database_tab_title_">
     <property name="geometry">
      <rect>

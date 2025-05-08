@@ -1,9 +1,9 @@
-#include "newuserform.h"
-#include "ui_newuserform.h"
+#include "userform.h"
+#include "ui_userform.h"
 
-NewUserForm::NewUserForm(QWidget *parent/*, cafeteria_app::request_handler::RequestHandler *handler*/)
+UserForm::UserForm(QWidget *parent/*, cafeteria_app::request_handler::RequestHandler *handler*/)
     : QWidget(parent)
-    , ui(new Ui::NewUserForm)
+    , ui(new Ui::UserForm)
     //, handler_(handler)
 {
     this->setWindowModality(Qt::WindowModality::ApplicationModal);
@@ -12,12 +12,12 @@ NewUserForm::NewUserForm(QWidget *parent/*, cafeteria_app::request_handler::Requ
 
 }
 
-NewUserForm::~NewUserForm()
+UserForm::~UserForm()
 {
     delete ui;
 }
 
-void NewUserForm::on_save_button__clicked()
+void UserForm::on_save_button__clicked()
 {
     using namespace std::literals;
 

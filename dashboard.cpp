@@ -64,7 +64,7 @@ void Dashboard::on_database_tab_button__clicked()
 void Dashboard::on_add_user_button__clicked()
 {
     if (!new_user_form_) {
-        new_user_form_ = new NewUserForm(nullptr/*, handler_*/);
+        new_user_form_ = new UserForm(nullptr/*, handler_*/);
     }
 
     new_user_form_->show();

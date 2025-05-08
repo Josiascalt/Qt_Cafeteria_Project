@@ -57,7 +57,7 @@ SOURCES += \
     dashboard.cpp \
     login.cpp \
     main.cpp \
-    newuserform.cpp
+    userform.cpp
 
 HEADERS += \
     admin_dashboard.h \
@@ -117,13 +117,13 @@ HEADERS += \
     core/utilities/utilities.h \
     dashboard.h \
     login.h \
-    newuserform.h
+    userform.h
 
 FORMS += \
     admin_dashboard.ui \
     dashboard.ui \
     login.ui \
-    newuserform.ui
+    userform.ui
 
 TRANSLATIONS += \
     CafeteriaRecordSysInterface_zh_TW.ts

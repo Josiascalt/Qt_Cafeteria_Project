@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "newuserform.h"
+#include "userform.h"
 #include "core/api.h"
 
 namespace Ui {
@@ -30,7 +30,7 @@ private slots:
 private:
     Ui::Dashboard *ui;
     cafeteria_app::CoreHandler *core_;
-    NewUserForm *new_user_form_;
+    UserForm *new_user_form_;
 };
 
 #endif // DASHBOARD_H

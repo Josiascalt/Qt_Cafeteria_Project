@@ -1,36 +1,33 @@
 #ifndef DASHBOARD_H
 #define DASHBOARD_H
+#pragma once
 
-#include <QWidget>
+#include <QMainWindow>
 
-#include "userform.h"
-#include "core/api.h"
+#include "login.h"
 
 namespace Ui {
 class Dashboard;
 }
 
-class Dashboard : public QWidget
+class Dashboard : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit Dashboard(QWidget *parent = nullptr, cafeteria_app::CoreHandler *core = nullptr);
+    explicit Dashboard(QWidget *parent = nullptr);
     ~Dashboard();
 
 private slots:
-    void on_exit_button__clicked();
-
     void on_home_tab_button__clicked();
 
     void on_database_tab_button__clicked();
 
-    void on_add_user_button__clicked();
+    void on_log_button__clicked();
 
 private:
     Ui::Dashboard *ui;
-    cafeteria_app::CoreHandler *core_;
-    UserForm *new_user_form_;
+    Login *login_;
 };
 
-#endif // DASHBOARD_H
+#endif //DASHBOARD_H

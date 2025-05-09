@@ -2,7 +2,8 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "admin_dashboard.h"
+#include "dashboard.h"
+
 #include "core\api.cpp"
 
 int main(int argc, char *argv[])
@@ -20,9 +21,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    auto core = cafeteria_app::Start();
+    //auto core = cafeteria_app::Start();
 
-    AdminDashboard d;
+    Dashboard d;
     d.show();
 
     return a.exec();

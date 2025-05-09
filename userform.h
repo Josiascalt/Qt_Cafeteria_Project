@@ -1,5 +1,6 @@
 #ifndef USERFORM_H
 #define USERFORM_H
+#pragma once
 
 #include <QWidget>
 

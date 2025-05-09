@@ -9,7 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    admin_dashboard.cpp \
     core/api.cpp \
     core/database_handler.cpp \
     core/domain.cpp \
@@ -60,7 +59,6 @@ SOURCES += \
     userform.cpp
 
 HEADERS += \
-    admin_dashboard.h \
     core/api.h \
     core/database_handler.h \
     core/document_templates.h \
@@ -120,7 +118,6 @@ HEADERS += \
     userform.h
 
 FORMS += \
-    admin_dashboard.ui \
     dashboard.ui \
     login.ui \
     userform.ui

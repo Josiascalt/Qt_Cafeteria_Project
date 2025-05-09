@@ -17,406 +17,437 @@
    <iconset resource="pictures.qrc">
     <normaloff>:/media/pics/logo_tac.png</normaloff>:/media/pics/logo_tac.png</iconset>
   </property>
+  <property name="toolTipDuration">
+   <number>0</number>
+  </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #FCFBFC;</string>
+   <string notr="true">font: 700 12pt &quot;Open Sans&quot;;
+background-color: #FCFBFC;
+color: #404040;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>25</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>25</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>60</number>
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
    </property>
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <property name="bottomMargin">
-        <number>30</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="logo_">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="toolTipDuration">
-          <number>0</number>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: transparent
-;</string>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="pictures.qrc">:/media/pics/logo_tac.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="indent">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="qr_button_">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font">
-        <font>
-         <family>Open Sans</family>
-         <pointsize>12</pointsize>
-         <italic>false</italic>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-         <kerning>false</kerning>
-         <fontweight>DemiBold</fontweight>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: #2575FC;</string>
-       </property>
-       <property name="lineWidth">
-        <number>0</number>
-       </property>
-       <property name="text">
-        <string>Log in with QR</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::TextFormat::PlainText</enum>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
-       <property name="margin">
-        <number>0</number>
-       </property>
-       <property name="indent">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <layout class="QGridLayout" name="gridLayout_4">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>30</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="title_">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Open Sans</family>
-           <pointsize>18</pointsize>
-           <italic>false</italic>
-           <bold>true</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-           <kerning>false</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #373637;
+    <widget class="QWidget" name="content_" native="true">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+	font-weight: 500;
+	color: #797B83;
+	border: 1px solid #797B83;
+	padding: 10px;
+}
+
+QPushButton {
+	color: #FCFBFC;
+	background-color: #2575FC;
+	border-radius: 10px;
+}
 </string>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <property name="text">
-          <string>Welcome Back!</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::TextFormat::PlainText</enum>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
-         <property name="indent">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="subtitle_">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Open Sans</family>
-           <pointsize>12</pointsize>
-           <italic>false</italic>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-           <kerning>false</kerning>
-           <fontweight>DemiBold</fontweight>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #373637;
-</string>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <property name="text">
-          <string>Log in to get started</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::TextFormat::PlainText</enum>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
-         <property name="indent">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <layout class="QGridLayout" name="gridLayout_5">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>30</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLineEdit" name="email_">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>350</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Open Sans</family>
-           <pointsize>12</pointsize>
-           <italic>false</italic>
-           <fontweight>ExtraLight</fontweight>
-          </font>
-         </property>
-         <property name="toolTipDuration">
-          <number>0</number>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #797B83;
-border: 1px solid #797B83;
-padding: 10px;</string>
-         </property>
-         <property name="frame">
-          <bool>false</bool>
-         </property>
-         <property name="cursorPosition">
-          <number>0</number>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="placeholderText">
-          <string>Enter Email</string>
-         </property>
-         <property name="cursorMoveStyle">
-          <enum>Qt::CursorMoveStyle::VisualMoveStyle</enum>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="password_">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>350</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Open Sans</family>
-           <pointsize>12</pointsize>
-           <italic>false</italic>
-           <fontweight>ExtraLight</fontweight>
-          </font>
-         </property>
-         <property name="toolTipDuration">
-          <number>0</number>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #797B83;
-border: 1px solid #797B83;
-padding: 10px;</string>
-         </property>
-         <property name="inputMask">
-          <string/>
-         </property>
-         <property name="frame">
-          <bool>false</bool>
-         </property>
-         <property name="echoMode">
-          <enum>QLineEdit::EchoMode::Password</enum>
-         </property>
-         <property name="cursorPosition">
-          <number>0</number>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="placeholderText">
-          <string>Password</string>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="login_button_">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>45</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Open Sans</family>
-           <pointsize>12</pointsize>
-           <fontweight>DemiBold</fontweight>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #FCFBFC;
-background-color: #2575FC;
-border-radius: 10px;</string>
-         </property>
-         <property name="text">
-          <string>LOG IN</string>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
-         <property name="default">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+     </property>
+     <layout class="QGridLayout" name="content_layout_">
+      <property name="leftMargin">
+       <number>25</number>
+      </property>
+      <property name="topMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>25</number>
+      </property>
+      <property name="bottomMargin">
+       <number>60</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="2" column="0">
+       <layout class="QGridLayout" name="form_layout_">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>0</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>10</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="email_">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <fontweight>Medium</fontweight>
+           </font>
+          </property>
+          <property name="toolTipDuration">
+           <number>0</number>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Enter Email</string>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::CursorMoveStyle::VisualMoveStyle</enum>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="password_">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <fontweight>Medium</fontweight>
+           </font>
+          </property>
+          <property name="toolTipDuration">
+           <number>0</number>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="inputMask">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::EchoMode::Password</enum>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Password</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="header_layout_">
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>0</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>10</number>
+        </property>
+        <item row="5" column="0">
+         <widget class="QLabel" name="subtitle_">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="text">
+           <string>Log in to get started</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::TextFormat::PlainText</enum>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="indent">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="title_">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font-size: 20px;</string>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="text">
+           <string>Welcome Back!</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::TextFormat::PlainText</enum>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="indent">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
+         <widget class="QLabel" name="logo_">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="toolTipDuration">
+           <number>0</number>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="pictures.qrc">:/media/pics/logo_tac.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+          <property name="indent">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="11" column="0">
+       <layout class="QGridLayout" name="buttons_layout_">
+        <property name="horizontalSpacing">
+         <number>0</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>10</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="qr_button_">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+            <underline>false</underline>
+            <strikeout>false</strikeout>
+            <kerning>false</kerning>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #2575FC;</string>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="text">
+           <string>Log in with QR</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::TextFormat::PlainText</enum>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="indent">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="login_button_">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <pointsize>12</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>LOG IN</string>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>

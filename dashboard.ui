@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Dashboard</class>
- <widget class="QWidget" name="Dashboard">
+ <widget class="QMainWindow" name="Dashboard">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>600</height>
+    <width>800</width>
+    <height>700</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Dashboard</string>
@@ -23,605 +17,780 @@
    <iconset resource="pictures.qrc">
     <normaloff>:/media/pics/logo_tac.png</normaloff>:/media/pics/logo_tac.png</iconset>
   </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
-  </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #FCFBFC;</string>
-  </property>
-  <property name="locale">
-   <locale language="English" country="World"/>
-  </property>
-  <widget class="QWidget" name="left_panel_" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>225</width>
-     <height>600</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: #2575FC;</string>
-   </property>
-   <widget class="QFrame" name="admin_info_">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>225</width>
-      <height>200</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 1px solid #4681CE;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <widget class="QLabel" name="admin_avatar_">
-     <property name="geometry">
-      <rect>
-       <x>65</x>
-       <y>35</y>
-       <width>95</width>
-       <height>95</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTipDuration">
-      <number>0</number>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border: none;</string>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="pictures.qrc">:/media/pics/avatar.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-     <property name="indent">
-      <number>0</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="admin_name_">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>135</y>
-       <width>165</width>
-       <height>50</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>12</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="toolTipDuration">
-      <number>0</number>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: #FCFBFC;
-border: none;</string>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <property name="text">
-      <string>User Name</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="indent">
-      <number>0</number>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="home_tab_button_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>235</y>
-      <width>165</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-      <stylestrategy>PreferDefault</stylestrategy>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FCFBFC;
-padding-left: 20px;
-text-align: left;</string>
-    </property>
-    <property name="text">
-     <string>    Home</string>
-    </property>
-    <property name="icon">
-     <iconset resource="pictures.qrc">
-      <normaloff>:/media/icons/home.png</normaloff>:/media/icons/home.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="database_tab_button_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>285</y>
-      <width>165</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-      <stylestrategy>PreferDefault</stylestrategy>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FCFBFC;
-padding-left: 20px;
-text-align: left;</string>
-    </property>
-    <property name="text">
-     <string>    Database</string>
-    </property>
-    <property name="icon">
-     <iconset resource="pictures.qrc">
-      <normaloff>:/media/icons/database.png</normaloff>:/media/icons/database.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="analytics_tab_button_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>335</y>
-      <width>165</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-      <stylestrategy>PreferDefault</stylestrategy>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FCFBFC;
-padding-left: 20px;
-text-align: left;</string>
-    </property>
-    <property name="text">
-     <string>    Analytics</string>
-    </property>
-    <property name="icon">
-     <iconset resource="pictures.qrc">
-      <normaloff>:/media/icons/analytics.png</normaloff>:/media/icons/analytics.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="exit_button_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>515</y>
-      <width>165</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-      <stylestrategy>PreferDefault</stylestrategy>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #404040;
+   <string notr="true">font: 700 12pt &quot;Open Sans&quot;;
 background-color: #FCFBFC;
-border: 2px solid #404040;
-padding-left: 20px;
-text-align: left;
-border-radius: 10px;</string>
-    </property>
-    <property name="text">
-     <string>    Log Out</string>
-    </property>
-    <property name="icon">
-     <iconset resource="pictures.qrc">
-      <normaloff>:/media/icons/log_out_black.png</normaloff>:/media/icons/log_out_black.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="home_tab_" native="true">
-   <property name="geometry">
-    <rect>
-     <x>225</x>
-     <y>0</y>
-     <width>775</width>
-     <height>600</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
+color: #404040;</string>
+  </property>
+  <widget class="QWidget" name="admin_dashboard_content_">
+   <property name="toolTipDuration">
+    <number>0</number>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="QLabel" name="home_tab_title_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>575</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>25</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #404040;</string>
-    </property>
-    <property name="text">
-     <string>Home</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="income_container_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>100</y>
-      <width>270</width>
-      <height>130</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="visitor_flow_container_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>245</y>
-      <width>270</width>
-      <height>325</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="graphs_container_">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>245</y>
-      <width>425</width>
-      <height>250</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="temp_container_1">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>100</y>
-      <width>135</width>
-      <height>130</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="downloads_container_">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>100</y>
-      <width>270</width>
-      <height>130</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="temp_container_2">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>510</y>
-      <width>425</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #797B83;
-background-color: #FCFBFC;
-border-radius: 10px;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="database_tab_" native="true">
-   <property name="geometry">
-    <rect>
-     <x>225</x>
-     <y>0</y>
-     <width>775</width>
-     <height>600</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <widget class="QLabel" name="database_tab_title_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>575</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Open Sans</family>
-      <pointsize>25</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #404040;</string>
-    </property>
-    <property name="text">
-     <string>Database</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="database_viewer_">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>100</y>
-      <width>715</width>
-      <height>470</height>
-     </rect>
-    </property>
-    <property name="rowCount">
+   <layout class="QGridLayout" name="admin_dashboard_content_layout_">
+    <property name="leftMargin">
      <number>0</number>
     </property>
-    <property name="columnCount">
+    <property name="topMargin">
      <number>0</number>
     </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-   </widget>
-   <widget class="QPushButton" name="add_user_button_">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>55</y>
-      <width>45</width>
-      <height>45</height>
-     </rect>
-    </property>
-    <property name="toolTipDuration">
+    <property name="rightMargin">
      <number>0</number>
     </property>
-    <property name="styleSheet">
-     <string notr="true">border: 1px solid #2575FC;</string>
+    <property name="bottomMargin">
+     <number>0</number>
     </property>
-    <property name="text">
-     <string/>
+    <property name="spacing">
+     <number>0</number>
     </property>
-    <property name="icon">
-     <iconset resource="pictures.qrc">
-      <normaloff>:/media/icons/add_user_blue.png</normaloff>:/media/icons/add_user_blue.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>35</width>
-      <height>35</height>
-     </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
+    <item row="0" column="0">
+     <widget class="QWidget" name="left_panel_" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+	background-color: #2575FC;
+	color: #FCFBFC;
+}
+
+QPushButton {
+	text-align: left;
+	padding-left: 20px;
+}</string>
+      </property>
+      <layout class="QGridLayout" name="left_panel_layout_">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="2" column="0">
+        <layout class="QGridLayout" name="admin_info_layout_">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>30</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="admin_avatar_">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="pictures.qrc">:/media/pics/avatar.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+           <property name="indent">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="admin_id_">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>65</height>
+            </size>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Admin ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+           <property name="indent">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0">
+        <widget class="QWidget" name="left_panel_nav_" native="true">
+         <layout class="QGridLayout" name="left_panel_nav_layout_">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="database_tab_button_">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>65</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTipDuration">
+             <number>0</number>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>    Database</string>
+            </property>
+            <property name="icon">
+             <iconset resource="pictures.qrc">
+              <normaloff>:/media/icons/database.png</normaloff>:/media/icons/database.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="home_tab_button_">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>65</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTipDuration">
+             <number>0</number>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>    Home</string>
+            </property>
+            <property name="icon">
+             <iconset resource="pictures.qrc">
+              <normaloff>:/media/icons/home.png</normaloff>:/media/icons/home.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="analytics_tab_button_">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>65</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTipDuration">
+             <number>0</number>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>    Analytics</string>
+            </property>
+            <property name="icon">
+             <iconset resource="pictures.qrc">
+              <normaloff>:/media/icons/analytics.png</normaloff>:/media/icons/analytics.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignBottom">
+          <widget class="QPushButton" name="log_button_">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>65</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: #404040;
+</string>
+           </property>
+           <property name="text">
+            <string>    Log Out</string>
+           </property>
+           <property name="icon">
+            <iconset resource="pictures.qrc">
+             <normaloff>:/media/icons/log_out_black.png</normaloff>:/media/icons/log_out_black.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="autoRepeatDelay">
+            <number>0</number>
+           </property>
+           <property name="autoRepeatInterval">
+            <number>0</number>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QWidget" name="tab_display_" native="true">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	border: 2px solid #2575FC;
+}
+
+QPushButton:hover {
+	border-color: #404040;
+}</string>
+      </property>
+      <layout class="QGridLayout" name="tab_display_layout_">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QWidget" name="database_tab_" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="toolTipDuration">
+          <number>0</number>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <layout class="QGridLayout" name="database_tab_layout_">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="0" colspan="2">
+           <layout class="QGridLayout" name="database_tab_header_layout_">
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>30</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="database_tab_title_">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-size: 30px;</string>
+              </property>
+              <property name="text">
+               <string>Database</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="add_user_button_">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>65</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTipDuration">
+               <number>0</number>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="pictures.qrc">
+                <normaloff>:/media/icons/add_user_blue.png</normaloff>:/media/icons/add_user_blue.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QWidget" name="database_tab_content_" native="true">
+            <layout class="QGridLayout" name="database_tab_content_layout_">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QTableWidget" name="database_viewer_">
+               <property name="rowCount">
+                <number>0</number>
+               </property>
+               <property name="columnCount">
+                <number>0</number>
+               </property>
+               <attribute name="horizontalHeaderVisible">
+                <bool>true</bool>
+               </attribute>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QWidget" name="home_tab_" native="true">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <layout class="QGridLayout" name="home_tab_layout_">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>0</number>
+          </property>
+          <item row="2" column="0" colspan="2">
+           <widget class="QWidget" name="home_tab_content_" native="true">
+            <layout class="QGridLayout" name="home_tab_content_layout_">
+             <property name="leftMargin">
+              <number>1</number>
+             </property>
+             <property name="topMargin">
+              <number>50</number>
+             </property>
+             <property name="rightMargin">
+              <number>1</number>
+             </property>
+             <property name="bottomMargin">
+              <number>50</number>
+             </property>
+             <item row="2" column="0">
+              <layout class="QGridLayout" name="home_tab_content_div2">
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="pushButton_4">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>4</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <layout class="QGridLayout" name="home_tab_content_div3">
+                 <property name="spacing">
+                  <number>10</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="QPushButton" name="pushButton_5">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>5</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QPushButton" name="pushButton_6">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="text">
+                    <string>6</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QGridLayout" name="home_tab_content_div1">
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>10</number>
+               </property>
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="pushButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">width: 50%;</string>
+                 </property>
+                 <property name="text">
+                  <string>1</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pushButton_3">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>3</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <layout class="QGridLayout" name="home_tab_header_layout_">
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>30</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="home_tab_title_">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-size: 30px</string>
+              </property>
+              <property name="text">
+               <string>Home</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>

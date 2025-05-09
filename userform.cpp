@@ -19,7 +19,6 @@ UserForm::~UserForm()
 
 void UserForm::on_save_button__clicked()
 {
-    using namespace std::literals;
 
     /*cafeteria_app::domain::standardized_types::UserPtr user(new cafeteria_app::domain::compound_types::Student);
     if (auto student = dynamic_cast<cafeteria_app::domain::compound_types::Student*>(user.get())) {

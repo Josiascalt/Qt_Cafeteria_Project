@@ -9,7 +9,7 @@ Login::Login(QWidget *parent, cafeteria_app::CoreHandler *core)
 {
     this->setWindowModality(Qt::WindowModality::ApplicationModal);
     this->setWindowFlags(Qt::WindowCloseButtonHint);
-    //this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setAttribute(Qt::WA_TranslucentBackground);
     ui->setupUi(this);
 }
 
